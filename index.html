@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majlis Musyawarah Santri (MMS) - Pusat Dokumentasi Bahtsul Masa'il</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Amiri (untuk nuansa kitab kuning/Arab) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN (Hanya untuk utility dasar layout cepat, seluruh kustomisasi premium ditulis di CSS internal) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            850: '#064e3b',
+                            900: '#022c22',
+                            950: '#011611',
+                        },
+                        sage: {
+                            100: '#f0f4f1',
+                            200: '#d9e2db',
+                            600: '#5a7863',
+                            700: '#455c4d',
+                        },
+                        gold: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            light: '#fef08a',
+                        },
+                        cream: '#fdfbf7',
+                        darkwood: '#2c221e'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Premium -->
+    <style>
+        /* ==========================================
+           VARIABLES & RESET
+           ========================================== */
+        :root {
+            --primary-emerald: #064e3b;
+            --deep-emerald: #022c22;
+            --sage-accent: #5a7863;
+            --gold-accent: #d4af37;
+            --gold-light: #f3e5ab;
+            --cream-bg: #fdfbf7;
+            --card-glass: rgba(255, 255, 255, 0.85);
+            --dark-glass: rgba(2, 44, 34, 0.85);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--cream-bg);
+            color: #1f2937;
+            overflow-x: hidden;
+            selection-background-color: var(--gold-accent);
+            selection-color: #fff;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #022c22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #5a7863;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+
+        /* ==========================================
+           BACKGROUND & OVERLAY EFFECTS
+           ========================================== */
+        .hero-bg {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(205,157,0,0.7),
+            rgba(3,78,34,0.8),
+            rgba(6,95,70,0.7),
+            rgba(212,175,55,0.6)
+        ),
+        url('background.jpg')
+        center/cover no-repeat;
+
+    background-size: 400% 400%, cover;
+    animation: gradientMove 15s ease infinite;
+    position: relative;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%, center;
+    }
+
+    50% {
+        background-position: 100% 50%, center;
+    }
+
+    100% {
+        background-position: 0% 50%, center;
+    }
+}
+
+        .glass-panel {
+            background: rgba(218, 2, 2, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(212, 175, 55, 0.25);
+            border-color: rgba(212, 175, 55, 0.6);
+        }
+
+        /* Floating Light Effect */
+        .floating-light {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(6,78,59,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatOrb 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.2); }
+        }
+
+        /* Particle Animation */
+        .particle {
+            position: absolute;
+            background: rgb(212, 255, 0);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: rise 15s infinite linear;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* ==========================================
+           BUTTONS & INTERACTIONS
+           ========================================== */
+        .btn-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #e0bf4ec1 0%, #c1940b 100%);
+        }
+
+        .btn-emerald {
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+            color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(2, 44, 34, 0.3);
+        }
+
+        .btn-emerald:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 78, 59, 0.5);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: rippleAnim 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes rippleAnim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Header blur on scroll */
+        header.scrolled {
+            background: rgba(2, 44, 34, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Floating Animation for Agenda Card */
+        .floating-card {
+            animation: floatingCard 4s ease-in-out infinite;
+        }
+
+        @keyframes floatingCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Masonry Gallery Styles */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media(min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media(min-width: 1024px) { .masonry-grid { column-count: 3; } }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Ebook Reading Mode */
+        .reader-content {
+            font-size: 1.15rem;
+            line-height: 2.1;
+            color: #2d3748;
+        }
+        .reader-content p {
+            margin-bottom: 1.5rem;
+        }
+        section {
+    background: rgba(139, 94, 60, 0.25);
+    backdrop-filter: blur(10px);
+}
+
+.text-shadow-custom {
+    text-shadow: 6px 7px 10px rgba(0,0,0,0.75);
+}
+
+.letter {
+    display: inline-block;
+    animation: letterGrow 8s infinite;
+}
+
+
+/* setiap huruf bergerak bergantian */
+.letter:nth-child(1) { animation-delay: 0s; }
+.letter:nth-child(2) { animation-delay: 0.15s; }
+.letter:nth-child(3) { animation-delay: 0.3s; }
+.letter:nth-child(4) { animation-delay: 0.45s; }
+.letter:nth-child(5) { animation-delay: 0.6s; }
+.letter:nth-child(6) { animation-delay: 0.75s; }
+
+.letter:nth-child(8) { animation-delay: 1s; }
+.letter:nth-child(9) { animation-delay: 1.15s; }
+.letter:nth-child(10) { animation-delay: 1.3s; }
+.letter:nth-child(11) { animation-delay: 1.45s; }
+.letter:nth-child(12) { animation-delay: 1.6s; }
+.letter:nth-child(13) { animation-delay: 1.75s; }
+.letter:nth-child(14) { animation-delay: 1.9s; }
+.letter:nth-child(15) { animation-delay: 2.05s; }
+.letter:nth-child(16) { animation-delay: 2.2s; }
+
+.letter:nth-child(18) { animation-delay: 2.5s; }
+.letter:nth-child(19) { animation-delay: 2.65s; }
+.letter:nth-child(20) { animation-delay: 2.8s; }
+.letter:nth-child(21) { animation-delay: 2.95s; }
+.letter:nth-child(22) { animation-delay: 3.1s; }
+.letter:nth-child(23) { animation-delay: 3.25s; }
+
+
+@keyframes letterGrow {
+
+    0%, 80%, 100% {
+        transform: scale(1);
+    }
+
+    10% {
+        transform: scale(1.25);
+    }
+
+    20% {
+        transform: scale(1);
+    }
+}
+    </style>
+</head>
+<body class="bg-[#fdfbf7] text-gray-800 antialiased selection:bg-yellow-500 selection:text-white">
+
+    <!-- ==========================================
+       PARTICLE CONTAINER & LIGHT ORBS
+       ========================================== -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
+    <div class="floating-light top-20 left-10"></div>
+    <div class="floating-light bottom-20 right-10" style="animation-delay: -5s;"></div>
+
+    <!-- ==========================================
+       HEADER & NAVIGATION
+       ========================================== -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-500 py-4 px-6 md:px-12 flex items-center justify-between">
+        <!-- Brand / Logo -->
+        <a href="#beranda" onclick="switchSection('beranda')" class="flex items-center gap-3 group cursor-pointer">
+            <img src="logo.png" alt="Logo MMS" class="w-12 h-12 rounded-xl object-contain shadow-lg group-hover:scale-105 transition-transform bg-white/10 p-1">
+            </div>
+            <div>
+                <h1 class="text-white font-bold text-lg md:text-xl tracking-wide group-hover:text-yellow-400 transition-colors">Majlis Musyawarah Santri</h1>
+                <p class="text-xs text-yellow-200/80 tracking-wider uppercase font-medium">Forum Bahtsul Masa'il Antar Pesantren</p>
+            </div>
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <nav class="hidden lg:flex items-center gap-8 bg-black/20 backdrop-blur-md px-6 py-2.5 rounded-full border border-white/10">
+            <button onclick="switchSection('beranda')" class="nav-link text-white/90 hover:text-yellow-400 font-medium text-sm transition-colors active-nav" data-target="beranda">Beranda</button>
+            <button onclick="switchSection('arsip')" class="nav-link text-white/90 hover:text-yellow-400 font-medium text-sm transition-colors" data-target="arsip">Arsip Rumusan</button>
+            <button onclick="switchSection('galeri')" class="nav-link text-white/90 hover:text-yellow-400 font-medium text-sm transition-colors" data-target="galeri">Galeri</button>
+            <button onclick="switchSection('tentang')" class="nav-link text-white/90 hover:text-yellow-400 font-medium text-sm transition-colors" data-target="tentang">Tentang MMS</button>
+            <button onclick="switchSection('agenda')" class="nav-link text-white/90 hover:text-yellow-400 font-medium text-sm transition-colors" data-target="agenda">Agenda</button>
+        </nav>
+
+        <!-- Right Side Icons & Mobile Menu Trigger -->
+        <div class="flex items-center gap-4">
+            <!-- Search Bar Trigger / Quick Icon -->
+            <button onclick="openSearchModal()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/20" title="Cari Rumusan">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <!-- Social Media Icons (Hidden on small screens, visible on md+) -->
+            <!-- Social Media Icons (Hidden on small screens, visible on md+) -->
+<div class="hidden md:flex items-center gap-3 text-white/80">
+
+    <a href="https://www.youtube.com/@alhikmahdarussalam1980" 
+       target="_blank"
+       class="hover:text-yellow-400 hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-youtube"></i>
+    </a>
+
+    <a href="https://www.tiktok.com/@tepbar.media" 
+       target="_blank"
+       class="hover:text-yellow-400 hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-tiktok"></i>
+    </a>
+
+    <a href="https://www.instagram.com/tepbar_media/" 
+       target="_blank"
+       class="hover:text-yellow-400 hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+
+    <a href="https://www.facebook.com/ppalhikmahdarussalam?locale=id_ID" 
+       target="_blank"
+       class="hover:text-yellow-400 hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-facebook"></i>
+    </a>
+
+    <a href="https://wa.me/6287846714123?text=Assalamu%27alaikum%2C%20saya%20ingin%20bertanya%20mengenai%20Forum%20MMS." 
+       target="_blank"
+       class="hover:text-yellow-400 hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+</div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center border border-white/20">
+                <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Fullscreen Mobile Menu Panel -->
+    <div id="mobile-menu" class="fixed inset-0 bg-emerald-950/98 backdrop-blur-2xl z-30 flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none">
+        <nav class="flex flex-col items-center gap-6 text-center">
+            <button onclick="switchSection('beranda'); toggleMobileMenu();" class="text-2xl font-bold text-white hover:text-yellow-400 transition-colors">Beranda</button>
+            <button onclick="switchSection('arsip'); toggleMobileMenu();" class="text-2xl font-bold text-white hover:text-yellow-400 transition-colors">Arsip Rumusan</button>
+            <button onclick="switchSection('galeri'); toggleMobileMenu();" class="text-2xl font-bold text-white hover:text-yellow-400 transition-colors">Galeri</button>
+            <button onclick="switchSection('tentang'); toggleMobileMenu();" class="text-2xl font-bold text-white hover:text-yellow-400 transition-colors">Tentang MMS</button>
+            <button onclick="switchSection('agenda'); toggleMobileMenu();" class="text-2xl font-bold text-white hover:text-yellow-400 transition-colors">Agenda</button>
+        </nav>
+        <div class="flex items-center gap-5 mt-10 text-xl text-yellow-300">
+
+    <a href="https://www.youtube.com/@alhikmahdarussalam1980"
+       target="_blank"
+       class="hover:text-white hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-youtube"></i>
+    </a>
+
+    <a href="https://www.tiktok.com/@tepbar.media"
+       target="_blank"
+       class="hover:text-white hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-tiktok"></i>
+    </a>
+
+    <a href="https://www.instagram.com/tepbar_media/"
+       target="_blank"
+       class="hover:text-white hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+
+    <a href="https://www.facebook.com/ppalhikmahdarussalam?locale=id_ID"
+       target="_blank"
+       class="hover:text-white hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-facebook"></i>
+    </a>
+
+    <a href="https://wa.me/6287846714123?text=Assalamu%27alaikum%2C%20saya%20ingin%20bertanya%20mengenai%20Forum%20MMS."
+       target="_blank"
+       class="hover:text-white hover:scale-110 transition-all duration-300">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+</div>
+    </div>
+
+
+    <!-- ==========================================
+       MAIN CONTENT CONTAINER (SPA / DYNAMIC SWITCH)
+       ========================================== -->
+    <main id="main-container">
+
+        <!-- ==========================================
+           SECTION 1: BERANDA (HOME)
+           ========================================== -->
+        <section id="section-beranda" class="hero-bg min-h-screen flex flex-col justify-between pt-28 pb-12 px-6 md:px-16 text-white relative overflow-hidden">
+            
+            <!-- Hero Content Centered -->
+            <div class="max-w-4xl mx-auto text-center my-auto py-12">
+                <span class="inline-block py-1.5 px-5 rounded-full bg-yellow-500/20 text-yellow-300 text-sm font-semibold tracking-wider uppercase border border-yellow-500/30 mb-6 backdrop-blur-md animate-pulse">
+                    Forum Bahtsul Masa'il Antar Pesantren
+                </span>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-tight font-sans text-shadow-custom grow-text">
+    <span class="letter text-emerald-500">M</span><span class="letter text-emerald-500">a</span><span class="letter text-emerald-500">j</span><span class="letter text-emerald-500">l</span><span class="letter text-emerald-500">i</span><span class="letter text-emerald-500">s</span>
+
+    <span>&nbsp;</span>
+
+    <span class="letter text-amber-700">M</span><span class="letter text-amber-700">u</span><span class="letter text-amber-700">s</span><span class="letter text-amber-700">y</span><span class="letter text-amber-700">a</span><span class="letter text-amber-700">w</span><span class="letter text-amber-700">a</span><span class="letter text-amber-700">r</span><span class="letter text-amber-700">a</span><span class="letter text-amber-700">h</span>
+
+    <span>&nbsp;</span>
+
+    <span class="letter text-orange-500">S</span><span class="letter text-orange-500">a</span><span class="letter text-orange-500">n</span><span class="letter text-orange-500">t</span><span class="letter text-orange-500">r</span><span class="letter text-orange-500">i</span>
+</h1>
+                <p class="text-lg md:text-2xl text-emerald-100 font-light max-w-2xl mx-auto mb-10 leading-relaxed italic">
+                    "Merawat Tradisi Keilmuan Ulama Melalui Musyawarah Santri"
+                </p>
+
+                <!-- Search Bar Google Gemini Style -->
+                <div class="max-w-2xl mx-auto mb-12">
+                    <div onclick="openSearchModal()" class="glass-panel p-2.5 rounded-full flex items-center gap-4 cursor-pointer hover:bg-white/15 transition-all shadow-2xl border border-yellow-500/30 group">
+                        <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <span class="text-white/70 text-base md:text-lg font-light">Cari rumusan, tema, atau teks kitab (Arab/Latin)...</span>
+                        <div class="ml-auto pr-4 hidden sm:flex items-center gap-2">
+                            <span class="text-xs py-1 px-2.5 rounded bg-black/30 text-yellow-300 font-mono">Ctrl + K</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistik Counter Section -->
+                <div class="grid grid-cols-3 gap-4 max-w-3xl mx-auto mt-8 pt-8 border-t border-white/10">
+                    <div class="text-center">
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-yellow-400 font-sans"><span class="counter" data-target="30">0</span>+</h3>
+                        <p class="text-xs md:text-sm text-emerald-200 mt-1">Rumusan Tersimpan</p>
+                    </div>
+                    <div class="text-center border-x border-white/10">
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-yellow-400 font-sans"><span class="counter" data-target="5">0</span>+</h3>
+                        <p class="text-xs md:text-sm text-emerald-200 mt-1">Tahun Berjalan</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-yellow-400 font-sans"><span class="counter" data-target="45">0</span>+</h3>
+                        <p class="text-xs md:text-sm text-emerald-200 mt-1">Pembahasan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Left Info & Action Buttons -->
+            <div class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mt-auto pt-10">
+                <!-- Bagian Kiri Bawah: Shape & Pondok -->
+                <div class="relative pl-6 border-l-4 border-yellow-500">
+                    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+                        Pondok Pesantren Alhikmah Darussalam
+                    </h2>
+                    <p class="text-sm md:text-base text-yellow-200/90 font-medium mt-1">
+                        Tepa'nah Barat Durjan Kokop Bangkalan
+                    </p>
+                </div>
+
+                <!-- Tombol Utama -->
+                <div class="flex flex-wrap items-center gap-4">
+                    <button onclick="switchSection('arsip')" class="btn-gold px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-3 relative group">
+                        <i class="fa-solid fa-folder-open text-lg"></i>
+                        <span>Rumusan</span>
+                        <div class="absolute inset-0 rounded-2xl border-2 border-yellow-300 opacity-0 group-hover:opacity-100 transition-opacity animate-ping"></div>
+                    </button>
+                    <button onclick="switchSection('tentang')" class="btn-emerald px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-3 border border-emerald-600/50 backdrop-blur-md">
+                        <i class="fa-solid fa-circle-info text-lg text-yellow-400"></i>
+                        <span>Tentang MMS</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Agenda Terdekat Floating Card di Beranda -->
+            <div class="max-w-7xl mx-auto w-full mt-12">
+                <div onclick="openAgendaModal()" class="glass-card bg-emerald-950/80 border-yellow-500/40 p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 floating-card cursor-pointer group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-emerald-950 text-2xl font-bold shadow-lg group-hover:rotate-6 transition-transform">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold text-yellow-400 uppercase tracking-wider">Agenda Terdekat</span>
+                            <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-yellow-300 transition-colors">Majlis Musyawarah Santri Ke-36</h3>
+                            <p class="text-sm text-emerald-200"><i class="fa-regular fa-clock mr-2 text-yellow-400"></i> 27 Shafar 1448 H/10 Agustus 2026 M.</p>
+                        </div>
+                    </div>
+                    <button class="btn-gold px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2">
+                        <span>Lihat As'ilah</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+           SECTION 2: ARSIP RUMUSAN (PERPUSTAKAAN DIGITAL)
+           ========================================== -->
+        <section id="section-arsip" class="min-h-screen pt-28 pb-20 px-6 md:px-16 hidden">
+            <div class="max-w-7xl mx-auto">
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-emerald-700 font-bold uppercase tracking-widest text-xs py-1 px-3 bg-emerald-100 rounded-full">Perpustakaan Digital</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-emerald-950 mt-3 font-sans">Arsip Rumusan Bahtsul Masa'il</h2>
+                    <p class="text-gray-600 mt-4 text-base md:text-lg">Pusat dokumentasi dan referensi ilmiah hasil keputusan musyawarah antar pesantren.</p>
+                </div>
+
+                <!-- Filter & Search Controls -->
+                <div class="bg-white p-6 rounded-3xl shadow-xl border border-gray-100 mb-10 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto flex-1">
+                        <!-- Search input inside archive -->
+                        <div class="relative flex-1 min-w-[240px]">
+                            <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="archive-search-input" placeholder="Cari judul atau tema rumusan..." oninput="filterRumusan()" class="w-full pl-11 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
+                        </div>
+                        <!-- Filter Tahun -->
+                        <select id="filter-tahun" onchange="filterRumusan()" class="px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm font-medium text-gray-700">
+                            <option value="">Semua Tahun</option>
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                        </select>
+                        <!-- Filter Tema -->
+                        <select id="filter-tema" onchange="filterRumusan()" class="px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm font-medium text-gray-700">
+                            <option value="">Semua Tema</option>
+                            <option value="Fiqih Kontemporer">Fiqih Kontemporer</option>
+                            <option value="Ushul Fiqh">Ushul Fiqh</option>
+                            <option value="Muamalah">Muamalah</option>
+                            <option value="Ibadah">Ibadah</option>
+                        </select>
+                    </div>
+                    <!-- Sorting -->
+                    <div class="flex items-center gap-3">
+                        <select id="sort-order" onchange="filterRumusan()" class="px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm font-medium text-gray-700">
+                            <option value="terbaru">Urutan Terbaru</option>
+                            <option value="terlama">Urutan Terlama</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Rumusan Cards Grid -->
+                <div id="rumusan-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamic cards injected via JavaScript -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden text-center py-20">
+                    <div class="w-20 h-20 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto text-3xl mb-4">
+                        <i class="fa-solid fa-folder-closed"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Rumusan Tidak Ditemukan</h3>
+                    <p class="text-gray-500 mt-2">Coba kata kunci atau filter lain yang sesuai.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+           SECTION 3: HALAMAN BACA RUMUSAN (EBOOK READER)
+           ========================================== -->
+        <section id="section-baca" class="min-h-screen pt-28 pb-20 px-6 md:px-16 hidden">
+            <div class="max-w-4xl mx-auto">
+                <!-- Back Button -->
+                <button onclick="switchSection('arsip')" class="inline-flex items-center gap-2 text-emerald-800 font-bold mb-6 hover:text-emerald-950 transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Arsip</span>
+                </button>
+
+                <!-- Reader Card Container -->
+                <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 md:p-12 relative overflow-hidden">
+                    <!-- Reading Progress Bar -->
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-gray-100">
+                        <div id="reading-progress" class="h-full bg-yellow-500 w-0 transition-all duration-150"></div>
+                    </div>
+
+                    <!-- Meta Info -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-100">
+                        <div>
+                            <span id="reader-tema" class="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full">Tema</span>
+                            <span id="reader-tanggal" class="text-xs text-gray-500 ml-3"><i class="fa-regular fa-calendar mr-1"></i> Tanggal</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> <span id="reader-est-time">3 min</span> baca</span>
+                        </div>
+                    </div>
+
+                    <!-- Judul Rumusan -->
+                    <h1 id="reader-judul" class="text-2xl md:text-4xl font-extrabold text-emerald-950 mb-8 leading-tight font-sans">
+                        Judul Rumusan Bahtsul Masa'il
+                    </h1>
+
+                    <!-- Isi Rumusan (HTML Text) -->
+                    <div id="reader-isi" class="reader-content font-sans space-y-6">
+                        <!-- Content loaded dynamically -->
+                    </div>
+
+                    <!-- Bagian Fitur Berbagi & Download di Bawah Artikel -->
+                    <div class="mt-12 pt-8 border-t border-gray-100 flex flex-wrap items-center justify-between gap-6">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-bold text-gray-700">Bagikan:</span>
+                            <button onclick="shareTo('whatsapp')" class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 hover:bg-emerald-800 hover:text-white transition-colors flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></button>
+                            <button onclick="shareTo('facebook')" class="w-10 h-10 rounded-full bg-blue-100 text-blue-800 hover:bg-blue-600 hover:text-white transition-colors flex items-center justify-center"><i class="fa-brands fa-facebook-f"></i></button>
+                            <button onclick="shareTo('telegram')" class="w-10 h-10 rounded-full bg-sky-100 text-sky-800 hover:bg-sky-500 hover:text-white transition-colors flex items-center justify-center"><i class="fa-brands fa-telegram"></i></button>
+                            <button onclick="copyLink()" class="w-10 h-10 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-800 hover:text-white transition-colors flex items-center justify-center" title="Salin Tautan"><i class="fa-solid fa-link"></i></button>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200 font-semibold text-sm flex items-center gap-2 transition-colors">
+                                <i class="fa-solid fa-print text-yellow-500"></i> Print
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+           SECTION 4: GALERI KEGIATAN (MASONRY)
+           ========================================== -->
+        <section id="section-galeri" class="min-h-screen pt-28 pb-20 px-6 md:px-16 hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-emerald-700 font-bold uppercase tracking-widest text-xs py-1 px-3 bg-emerald-100 rounded-full">Dokumentasi Visual</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-emerald-950 mt-3 font-sans">Galeri Kegiatan MMS</h2>
+                    <p class="text-gray-600 mt-4 text-base md:text-lg">Kumpulan momen terbaik dari seluruh rangkaian kegiatan Majlis Musyawarah Santri.</p>
+                </div>
+
+                <!-- Masonry Grid -->
+                <div class="masonry-grid">
+                    <!-- Gallery Item 1 -->
+                    <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                        onclick="openLightbox('foto1.jpg', 'Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026')">
+
+                        <img src="foto1.jpg"
+                        alt="Galeri 1"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">15 Januari 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026</h3>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                        onclick="openLightbox('foto2.JPG', 'Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026')">
+
+                        <img src="foto2.JPG"
+                        alt="Galeri 2"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">20 Januari 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026</h3>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                        onclick="openLightbox('foto3.jpg', 'Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026')">
+
+                        <img src="foto3.jpg"
+                        alt="Galeri 3"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">25 Januari 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026</h3>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 4 -->
+                    <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                        onclick="openLightbox('foto4.jpg', 'Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026')">
+
+                        <img src="foto4.jpg"
+                        alt="Galeri 4"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">30 Januari 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+           SECTION 5: TENTANG MMS (ABOUT)
+           ========================================== -->
+        <section id="section-tentang" class="min-h-screen pt-28 pb-20 px-6 md:px-16 hidden">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-emerald-700 font-bold uppercase tracking-widest text-xs py-1 px-3 bg-emerald-100 rounded-full">Profil Resmi</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-emerald-950 mt-3 font-sans">Tentang Majlis Musyawarah Santri</h2>
+                    <p class="text-gray-600 mt-4 text-base md:text-lg">Mengenal lebih dekat sejarah, visi, misi, dan khidmat keilmuan forum.</p>
+                </div>
+
+                <!-- Latar Belakang & Visi Misi -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-2xl mb-6">
+                            <i class="fa-solid fa-book-bookmark"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-emerald-950 mb-4">Latar Belakang</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Majlis Musyawarah Santri (MMS) lahir dari kesadaran bersama antar pesantren untuk menjaga tradisi bahtsul masail sebagai metode merespons persoalan umat yang terus berkembang. Berpusat di Pondok Pesantren Alhikmah Darussalam, forum ini mempertemukan para santri pilihan untuk mendiskusikan problematika kontemporer berlandaskan kitab-kitab muktabar.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+                        <div class="w-14 h-14 rounded-2xl bg-yellow-100 text-yellow-800 flex items-center justify-center text-2xl mb-6">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-emerald-950 mb-4">Visi & Misi</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            <strong>Visi:</strong> Menjadi pusat rujukan digital rumusan Bahtsul Masa'il yang akurat, interaktif, dan berakar kuat pada turats salafus salih.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            <strong>Misi:</strong> Mendokumentasikan seluruh produk hukum Islam secara sistematis, memperkuat ukhuwah antar pesantren, dan melahirkan kader mujtahid penemu solusi masalah zaman.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Sejarah MMS -->
+                <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
+                    <h3 class="text-2xl font-bold text-emerald-950 mb-8 text-center">Timeline Sejarah MMS</h3>
+                    <div class="relative border-l-2 border-emerald-800/30 ml-4 md:ml-10 space-y-8">
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-800 border-4 border-white shadow"></div>
+                            <span class="text-xs font-bold text-yellow-600 uppercase">Tahun 2021</span>
+                            <h4 class="text-lg font-bold text-emerald-950 mt-1">Inisiasi Awal Forum</h4>
+                            <p class="text-gray-600 mt-1 text-sm">Pertemuan perdana para lurah pondok pesantren di Bangkalan untuk merintis majlis musyawarah terpadu.</p>
+                        </div>
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-800 border-4 border-white shadow"></div>
+                            <span class="text-xs font-bold text-yellow-600 uppercase">Tahun 2023</span>
+                            <h4 class="text-lg font-bold text-emerald-950 mt-1">Deklarasi Resmi & Kodifikasi Kitab</h4>
+                            <p class="text-gray-600 mt-1 text-sm">Pengesahan nama Majlis Musyawarah Santri (MMS) dan dimulainya digitalisasi arsip rumusan secara terbatas.</p>
+                        </div>
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-800 border-4 border-white shadow"></div>
+                            <span class="text-xs font-bold text-yellow-600 uppercase">Tahun 2026</span>
+                            <h4 class="text-lg font-bold text-emerald-950 mt-1">Peluncuran Perpustakaan Digital Modern</h4>
+                            <p class="text-gray-600 mt-1 text-sm">Transformasi total sistem arsip ke dalam platform web modern berbasis cloud dan open access bagi seluruh santri nusantara.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+           SECTION 6: AGENDA (AGENDA)
+           ========================================== -->
+        <section id="section-agenda" class="min-h-screen pt-28 pb-20 px-6 md:px-16 hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-emerald-700 font-bold uppercase tracking-widest text-xs py-1 px-3 bg-emerald-100 rounded-full">Jadwal Kegiatan</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-emerald-950 mt-3 font-sans">Agenda Musyawarah Terdekat</h2>
+                    <p class="text-gray-600 mt-4 text-base md:text-lg">Catat tanggalnya dan pelajari daftar as'ilah (pertanyaan) yang akan dibahas bersama.</p>
+                </div>
+
+                <!-- Main Agenda Card -->
+                <div class="bg-gradient-to-br from-emerald-950 to-emerald-900 text-white p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden border border-yellow-500/30">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-white/10">
+                        <div>
+                            <span class="px-3 py-1 bg-yellow-500 text-emerald-950 font-bold text-xs uppercase rounded-full">Bahtsul Masa'il</span>
+                            <h3 class="text-2xl md:text-3xl font-extrabold mt-3 text-white">Majlis Musyawarah Santri</h3>
+                            <p class="text-emerald-200 mt-1"><i class="fa-regular fa-calendar mr-2 text-yellow-400"></i> Senin, 10 Agustus 2026 | Pukul 19.30 WIB - Selesai</p>
+                            <p class="text-emerald-200 mt-1"><i class="fa-solid fa-location-dot mr-2 text-yellow-400"></i> Aula Utama Pondok Pesantren Al Hikmah Darussalam</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h4 class="text-lg font-bold text-yellow-400 mb-4">Daftar As'ilah (Pertanyaan) yang Akan Dibahas:</h4>
+                        <div class="space-y-4">
+                            <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
+                                <span class="text-xs font-bold text-yellow-300 uppercase">As'ilah 1</span>
+                                <h5 class="font-bold text-lg mt-1 text-white">KULIT MUBIN BERMASALAH | Sail: Kelas III Tsanawiyah</h5>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>Mubin adalah salah satu santri yang tergolong semangat dalam kegiatan pesantren. Ia juga terkenal dengan ketelatenannya dalam mengerjakan ibadah. Selain itu, dia termasuk salah satu santri yang terkena penyakit deskuamasi (terkelupasnya kulit). Penyakit itu biasanya banyak timbul ketika habis mandi, terlebih setelah mencuci baju, sehingga dia sangat kewalahan dalam menghilangkan atau mengangkat penyakit tersebut karena mungkin baginya terlalu banyak dan agak menyulitkan.</p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>Suatu hari, ketika ia sedang menelaah dan mempelajari beberapa kitab fikih, ia menemukan sebuah keterangan yang membahas tentang kewajiban membersihkan sesuatu yang dapat menghalangi sampainya air ke anggota wudu. Keterangan tersebut membuatnya mulai berpikir dan mencoba menghubungkannya dengan keadaan yang selama ini ia alami, yaitu kulitnya yang sering mengelupas setelah mandi atau mencuci pakaian. Adapun keterangan yang ia temukan adalah sebagai berikut:</p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><p dir="rtl"><br>(و) الثالث (غسل اليدين إلى المرفقين) فإن لم يكن له مرفقان اعتبر قدرهما، ويجب غسل ما على اليدين من شعر (وسلعة، وأصبع زائدة وأظافير، ويجب إزالة ما تحتها من وسخ يمنع وصول الماء إليه)] فتح القريب ص: 7]</p></p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>Dari keterangan tersebut, Mubin menjadi bingung. Apakah kulit-kulit yang terkelupas tersebut termasuk sil‘ah yang wajib dibasuh ataukah termasuk sesuatu yang dapat menghalangi sampainya air sehingga harus dihilangkan? Selain itu, Mubin juga merasa kebingungan mengenai cara membasuhnya. Sebab, terkadang kulit yang terkelupas tersebut hanya dalam keadaan mengembang atau terangkat, sehingga bagian dalam kulit yang longgar kemungkinan tidak terkena air ketika wudu.</p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br><strong>Pertanyaan:</strong></p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>a.	Langkah apa yang harus diambil oleh Mubin? Apakah ia harus membersihkan semua kulit yang terkelupas atau cukup membasuhnya?</p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>b.	Berdasarkan kutipan yang bergaris bawah diatas, apakah kotoran kuku termasuk pencegah sampainya air pada anggota wudu?</p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+       FOOTER
+       ========================================== -->
+    <footer class="bg-emerald-950 text-white pt-16 pb-12 border-t border-emerald-900">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-emerald-900/60">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-yellow-500 flex items-center justify-center text-emerald-950 font-bold text-xl">
+                        <i class="fa-solid fa-book-quran"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Majlis Musyawarah Santri</h3>
+                </div>
+                <p class="text-emerald-200/80 text-sm leading-relaxed">
+                    Pusat dokumentasi resmi rumusan Bahtsul Masa'il antar pesantren. Merawat tradisi keilmuan salaf untuk menjawab tantangan umat masa kini.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold text-yellow-400 mb-4 tracking-wider uppercase text-sm">Tautan Cepat</h4>
+                <ul class="space-y-2 text-sm text-emerald-200">
+                    <li><button onclick="switchSection('beranda')" class="hover:text-yellow-400 transition-colors">Beranda</button></li>
+                    <li><button onclick="switchSection('arsip')" class="hover:text-yellow-400 transition-colors">Arsip Rumusan</button></li>
+                    <li><button onclick="switchSection('galeri')" class="hover:text-yellow-400 transition-colors">Galeri Dokumentasi</button></li>
+                    <li><button onclick="switchSection('tentang')" class="hover:text-yellow-400 transition-colors">Tentang MMS</button></li>
+                    <li><button onclick="switchSection('agenda')" class="hover:text-yellow-400 transition-colors">Agenda Terdekat</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-yellow-400 mb-4 tracking-wider uppercase text-sm">Sekretariat</h4>
+                <p class="text-sm text-emerald-200 leading-relaxed mb-4">
+                    Pondok Pesantren Alhikmah Darussalam<br>
+                    Tepa'nah Barat Durjan Kokop Bangkalan, Jawa Timur
+                </p>
+                <div class="flex items-center gap-4 text-yellow-400 text-lg">
+
+    <a href="https://www.youtube.com/@alhikmahdarussalam1980" 
+       target="_blank"
+       class="hover:scale-110 hover:text-yellow-400 transition-all duration-300"">
+        <i class="fa-brands fa-youtube"></i>
+    </a>
+
+    <a href="https://www.tiktok.com/@tepbar.media" 
+       target="_blank"
+       class="hover:scale-110 hover:text-yellow-400 transition-all duration-300"">
+        <i class="fa-brands fa-tiktok"></i>
+    </a>
+
+    <a href="https://www.instagram.com/tepbar_media/" 
+       target="_blank"
+       class="hover:scale-110 hover:text-yellow-400 transition-all duration-300"">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+
+    <a href="https://www.facebook.com/ppalhikmahdarussalam?locale=id_ID" 
+       target="_blank"
+       class="hover:scale-110 hover:text-yellow-400 transition-all duration-300"">
+        <i class="fa-brands fa-facebook"></i>
+    </a>
+
+    <a href="https://wa.me/6287846714123?text=Assalamu%27alaikum%2C%20saya%20ingin%20bertanya%20mengenai%20Forum%20MMS." 
+       target="_blank"
+       class="hover:scale-110 hover:text-yellow-400 transition-all duration-300"">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+</div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-16 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-emerald-400/80">
+            <p>&copy; 2026 Majlis Musyawarah Santri (MMS). All rights reserved.</p>
+            <p class="mt-2 sm:mt-0">Designed with Premium Library Aesthetics for GitHub Pages.</p>
+        </div>
+    </footer>
+
+
+    <!-- ==========================================
+       MODALS (SEARCH & LIGHTBOX & AGENDA)
+       ========================================== -->
+
+    <!-- Search Modal (Google Gemini / Spotlight Style) -->
+    <div id="search-modal" class="fixed inset-0 bg-emerald-950/80 backdrop-blur-xl z-50 flex items-start justify-center pt-20 px-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden border border-yellow-500/30 transform scale-95 transition-all duration-300" id="search-modal-box">
+            <!-- Search Input Header -->
+            <div class="p-6 border-b border-gray-100 flex items-center gap-4">
+                <i class="fa-solid fa-magnifying-glass text-emerald-800 text-xl"></i>
+                <input type="text" id="modal-search-input" placeholder="Cari judul, tema, teks Arab atau Latin..." oninput="handleGlobalSearch(this.value)" class="w-full text-lg focus:outline-none text-gray-800 placeholder-gray-400">
+                <button onclick="closeSearchModal()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <!-- Search Results Area -->
+            <div id="modal-search-results" class="p-6 max-h-[60vh] overflow-y-auto space-y-4">
+                <div class="text-center py-8 text-gray-400 text-sm">
+                    Ketik kata kunci untuk mencari seluruh arsip rumusan Bahtsul Masa'il...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal for Gallery -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-3xl hover:text-yellow-400 transition-colors z-10"><i class="fa-solid fa-xmark"></i></button>
+        <div class="max-w-4xl max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="Zoom Image" class="max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-white/10">
+            <p id="lightbox-caption" class="text-white text-center mt-4 text-lg font-medium"></p>
+        </div>
+    </div>
+
+    <!-- Agenda Detail Modal -->
+    <div id="agenda-modal" class="fixed inset-0 bg-emerald-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300" onclick="closeAgendaModal()">
+        <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl p-8 transform scale-95 transition-all duration-300 relative" onclick="event.stopPropagation()">
+            <button onclick="closeAgendaModal()" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center font-bold"><i class="fa-solid fa-xmark"></i></button>
+            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 font-bold text-xs uppercase rounded-full">Agenda Terdekat</span>
+            <h3 class="text-2xl font-extrabold text-emerald-950 mt-3">Majlis Musyawarah Santri Ke-36</h3>
+            <p class="text-sm text-gray-500 mt-1"><i class="fa-regular fa-calendar text-yellow-600 mr-1"></i> 27 Shafar 1448 H/10 Agustus 2026 M.</p>
+            
+            <div class="mt-6 space-y-3">
+                <h4 class="font-bold text-gray-800 text-sm">Daftar As'ilah Utama:</h4>
+                <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                    <span class="text-xs font-bold text-emerald-800">As'ilah 1</span>
+                    <p class="font-semibold text-emerald-950 text-sm mt-0.5">KULIT MUBIN BERMASALAH</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <button onclick="closeAgendaModal(); switchSection('agenda');" class="btn-emerald w-full py-3 rounded-xl font-bold text-sm">Lihat Selengkapnya di Halaman Agenda</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==========================================
+       JAVASCRIPT CODE & DATA STRUCTURE
+       ========================================== -->
+    <script>
+        /* ==========================================
+           1. STRUKTUR DATA RUMUSAN BAHTSUL MASA'IL
+           ========================================== */
+        const rumusanData = [
+            {
+                id: 1,
+                judul: "Status Hukum Transaksi Aset Kripto dengan Underlying Asset Emas Digital",
+                tanggal: "12 Januari 2026",
+                tahun: "2026",
+                tema: "Fiqih Kontemporer",
+                estTime: "4 min",
+    
+                isi: `
+                    <p><strong>Deskripsi Masalah:</strong> Perkembangan teknologi finansial dewasa ini memunculkan instrumen investasi baru berupa aset kripto yang di-back-up secara langsung oleh fisik emas murni di brankas terverifikasi. Transaksi dilakukan secara peer-to-peer menggunakan teknologi blockchain tanpa kehadiran fisik emas secara langsung pada saat akad.</p>
+                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah kepemilikan aset kripto dengan <em>underlying asset</em> emas digital ini memenuhi syarat qabdhi (serah terima) dalam akad sharf (pertukaran mata uang/emas)?</p>
+                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Menurut hasil musyawarah, transaksi tersebut <strong>sah</strong> apabila pihak pengelola (issuer) terbukti menyimpan fisik emas secara nyata dan memberikan hak penarikan (redeem) fisik kepada pembeli sewaktu-waktu. Ini dianalogikan dengan kaidah <em>Al-Qabdh al-Hukmi</em> (serah terima secara hukum/sistem digital yang valid secara syariat).</p>
+                    <p class="font-arabic text-right text-xl mt-6">قال الإمام النووي في المجموع: القبض يحصل باختلاف أنواع, ومنه القبض الحكمي المعتبر شرعاً وعورفاً في المعاملات الحديثة.</p>
+                `
+            },
+            {
+                id: 2,
+                judul: "Batas Minimal Thaharah Penggunaan Air Hasil Daur Ulang Industri Modern",
+                tanggal: "28 Februari 2026",
+                tahun: "2026",
+                tema: "Ibadah",
+                estTime: "3 min",
+                isi: `
+                    <p><strong>Deskripsi Masalah:</strong> Kelangkaan air bersih di beberapa wilayah perkotaan mendorong PDAM dan industri menggunakan teknologi <em>Reverse Osmosis</em> tingkat lanjut untuk mendaur ulang air limbah domestik (greywater) menjadi air siap konsumsi dan suci mensucikan.</p>
+                    <p><strong>Pertanyaan (As'ilah):</strong> Sahkah penggunaan air hasil daur ulang tersebut untuk berwudhu dan mandi wajib?</p>
+                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Air hasil daur ulang hukumnya <strong>suci dan mensucikan (ma' thahir mutahhhir)</strong> selama sifat-sifat najisnya (warna, rasa, dan bau) telah hilang secara sempurna melalui proses penjernihan yang memenuhi standar kelayakan thaharah.</p>
+                `
+            },
+            {
+                id: 3,
+                judul: "Pelaksanaan Shalat Jumat di Stasiun Kereta Cepat dan Fasilitas Transit Publik",
+                tanggal: "15 Maret 2025",
+                tahun: "2025",
+                tema: "Fiqih Kontemporer",
+                estTime: "5 min",
+                pdi: `
+                    <p><strong>Deskripsi Masalah:</strong> Para musafir jarak jauh yang menggunakan moda transportasi kereta cepat seringkali terjebak waktu perjalanan melampaui hari Jumat, di mana mereka singgah di stasiun transit dalam durasi tertentu.</p>
+                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah dibenarkan mendirikan shalat Jumat di area fasilitas stasiun publik bagi para musafir yang berstatus muqim sementara?</p>
+                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Dibenarkan mendirikan shalat Jumat apabila terpenuhi syarat minimal jumlah jamaah (menurut mazhab Syafii minimal 40 orang yang memenuhi syarat mustawtin atau muqim yang berniat menetap selama pelaksanaan).</p>
+                `
+            },
+            {
+                id: 4,
+                judul: "Keabsahan Wakaf Uang Melalui Platform Fintech Crowdfunding Syariah",
+                tanf: "#",
+                isggal: "10 Agustus 2025",
+                tahun: "2025",
+                tema: "Muamalah",
+                estTime: "4 min",
+              
+                isi: `
+                    <p><strong>Deskripsi Masalah:</strong> Wakaf tunai kini dapat disalurkan melalui aplikasi digital secara massal (crowdfunding) dengan nominal kecil yang dikelola oleh Lembaga Keuangan Syariah Penerima Wakaf Uang (LKSPWU).</p>
+                    <p><strong>Pertanyaan (As'ilah):</strong> Bagaimana keabsahan akad wakaf uang yang dilakukan secara elektronik tanpa penandatanganan akta ikrar wakaf konvensional di hadapan PPAIW?</p>
+                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Wakaf uang tersebut sah secara hukum Islam karena ijab kabul terpenuhi melalui kehendak digital (sighat bil-kitabah/mu'arahah), dan akta ikrar dapat diterbitkan secara elektronik oleh nadzir resmi.</p>
+                `
+            },
+            {
+                id: 5,
+                judul: "Konsep Kepemilikan Hak Cipta (Intellectual Property Rights) Atas Kitab Kuning Digital",
+                tanggal: "05 November 2024",
+                tahun: "2024",
+                tema: "Ushul Fiqh",
+                estTime: "6 min",
+            
+                isi: `
+                    <p><strong>Deskripsi Masalah:</strong> Banyak kitab turats (kuning) yang ditranskripsi ulang ke dalam bentuk aplikasi digital dan diberi anotasi oleh penerbit modern, kemudian diperjualbelikan secara komersial.</p>
+                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah hak cipta digital atas tahqiq kitab turats diakui dalam perlindungan hak kekayaan intelektual syariah (Hifqu al-Huquq al-Maliyah)?</p>
+                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Diakui dan dilindungi, karena jerih payah (tahqiq, tashih, dan anotasi) memiliki nilai ekonomi (mutaqawwam) yang sah untuk dilindungi dari pembajakan komersial tanpa izin.</p>
+                `
+            },
+            {
+                id: 6,
+                judul: "Penggunaan Teknologi AI dalam Menyusun Fatwa Fiqih Kontemporer",
+                tanggal: "20 Desember 2025",
+                tahun: "2025",
+                tema: "Fiqih Kontemporer",
+                estTime: "5 min",
+            
+                isi: `
+                    <p><strong>Deskripsi Masalah:</strong> Lembaga fatwa kini menggunakan algoritma AI untuk menganalisis data hukum Islam dan menghasilkan draft fatwa secara otomatis.</p>
+                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah fatwa yang dihasilkan oleh sistem AI dapat dianggap sah dan mengikat secara syariat?</p>
+                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Fatwa yang dihasilkan oleh AI tidak sah secara hukum Islam jika tidak melalui proses musyawarah ulama yang kompeten. AI hanya berfungsi sebagai alat bantu analisis, bukan pengganti otoritas keilmuan manusia.</p>
+                `
+            },
+            {
+                id: 7,
+                judul: "Kepemilikan dan Pengelolaan Wakaf Digital Berbasis Blockchain",
+                tanggal: "15 Januari 2026",
+                tahun: "2026",
+                tema: "Muamalah",
+                estTime: "6 min",
+                isi: `
+                    <p><strong>Deskripsi Masalah:</strong> Munculnya teknologi blockchain membuka kemungkinan baru dalam pengelolaan wakaf digital, termasuk wakaf uang dan aset lainnya yang dapat dikelola secara transparan dan terdesentralisasi.</p>
+                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah wakaf digital yang dilakukan melalui platform berbasis blockchain dapat dianggap sah dan mengikat secara syariat?</p>
+                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Wakaf digital berbasis blockchain sah jika memenuhi syarat-syarat hukum Islam, termasuk ijab kabul yang jelas, serta adanya pengawasan dari pihak yang kompeten untuk memastikan keabsahan transaksi.</p>
+                `
+            }
+        ];
+
+
+        /* ==========================================
+           2. SPA ROUTING & SECTION SWITCHING
+           ========================================== */
+        function switchSection(sectionId) {
+            const sections = ['beranda', 'arsip', 'baca', 'galeri', 'tentang', 'agenda'];
+            sections.forEach(id => {
+                const el = document.getElementById(`section-${id}`);
+                if(el) el.classList.add('hidden');
+            });
+
+            const targetEl = document.getElementById(`section-${sectionId}`);
+            if(targetEl) {
+                targetEl.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if(link.getAttribute('data-target') === sectionId) {
+                    link.classList.add('text-yellow-400', 'font-bold');
+                    link.classList.remove('text-white/90');
+                } else {
+                    link.classList.remove('text-yellow-400', 'font-bold');
+                    link.classList.add('text-white/90');
+                }
+            });
+
+            if(sectionId === 'arsip') {
+                renderRumusanCards(rumusanData);
+            }
+        }
+
+
+        /* ==========================================
+           3. RENDER RUMUSAN CARDS
+           ========================================== */
+        function renderRumusanCards(data) {
+            const grid = document.getElementById('rumusan-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+
+            if(data.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'glass-card bg-white p-6 rounded-3xl flex flex-col justify-between border border-gray-100 shadow-lg hover:shadow-2xl transition-all group';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-xl font-bold group-hover:bg-yellow-500 group-hover:text-emerald-950 transition-colors">
+                                <i class="fa-solid fa-folder-open"></i>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full">${item.tema}</span>
+                        </div>
+                        <span class="text-xs text-gray-400"><i class="fa-regular fa-calendar mr-1"></i> ${item.tanggal}</span>
+                        <h3 class="text-lg font-bold text-emerald-950 mt-2 mb-3 group-hover:text-yellow-600 transition-colors line-clamp-2">${item.judul}</h3>
+                    </div>
+                    <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-3 mt-4">
+    
+                        <div class="flex items-center gap-2">
+                            <button onclick="bacaRumusan(${item.id})" class="btn-emerald px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-book-open"></i> Baca
+                            </button>
+                           
+</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+
+        /* ==========================================
+           4. EBOOK READER & VIEW LOGIC
+           ========================================== */
+        let currentActiveRumusan = null;
+
+        function bacaRumusan(id) {
+            const item = rumusanData.find(r => r.id === id);
+            if(!item) return;
+            currentActiveRumusan = item;
+
+            document.getElementById('reader-tema').innerText = item.tema;
+            document.getElementById('reader-tanggal').innerHTML = `<i class="fa-regular fa-calendar mr-1"></i> ${item.tanggal}`;
+            document.getElementById('reader-est-time').innerText = item.estTime;
+            document.getElementById('reader-judul').innerText = item.judul;
+            document.getElementById('reader-isi').innerHTML = item.isi;
+
+            switchSection('baca');
+        }
+
+
+        /* ==========================================
+           5. FILTER & SEARCH SYSTEM
+           ========================================== */
+        function filterRumusan() {
+            const keyword = document.getElementById('archive-search-input').value.toLowerCase();
+            const tahun = document.getElementById('filter-tahun').value;
+            const tema = document.getElementById('filter-tema').value;
+            const sort = document.getElementById('sort-order').value;
+
+            let filtered = rumusanData.filter(item => {
+                const matchKeyword = item.judul.toLowerCase().includes(keyword) || item.tema.toLowerCase().includes(keyword) || item.isi.toLowerCase().includes(keyword);
+                const matchTahun = tahun === "" || item.tahun === tahun;
+                const matchTema = tema === "" || item.tema === tema;
+                return matchKeyword && matchTahun && matchTema;
+            });
+
+            if(sort === 'terbaru') {
+                filtered.sort((a,b) => b.id - a.id);
+            } else {
+                filtered.sort((a,b) => a.id - b.id);
+            }
+
+            renderRumusanCards(filtered);
+        }
+
+        function openSearchModal() {
+            const modal = document.getElementById('search-modal');
+            const box = document.getElementById('search-modal-box');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+            document.getElementById('modal-search-input').focus();
+        }
+
+        function closeSearchModal() {
+            const modal = document.getElementById('search-modal');
+            const box = document.getElementById('search-modal-box');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            box.classList.remove('scale-100');
+            box.classList.add('scale-95');
+        }
+
+        function handleGlobalSearch(query) {
+            const container = document.getElementById('modal-search-results');
+            container.innerHTML = '';
+
+            if(!query.trim()) {
+                container.innerHTML = `<div class="text-center py-8 text-gray-400 text-sm">Ketik kata kunci untuk mencari seluruh arsip rumusan Bahtsul Masa'il...</div>`;
+                return;
+            }
+
+            const results = rumusanData.filter(item => 
+                item.judul.toLowerCase().includes(query.toLowerCase()) || 
+                item.isi.toLowerCase().includes(query.toLowerCase()) ||
+                item.tema.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if(results.length === 0) {
+                container.innerHTML = `<div class="text-center py-8 text-gray-500 text-sm">Tidak ditemukan rumusan yang cocok dengan "<strong>${query}</strong>"</div>`;
+                return;
+            }
+
+            results.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'p-4 rounded-2xl bg-gray-50 hover:bg-emerald-50 border border-gray-100 cursor-pointer transition-colors';
+                div.onclick = () => {
+                    closeSearchModal();
+                    bacaRumusan(item.id);
+                };
+                div.innerHTML = `
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-bold text-emerald-800 uppercase">${item.tema}</span>
+                        <span class="text-xs text-gray-400">${item.tanggal}</span>
+                    </div>
+                    <h4 class="font-bold text-gray-900 text-base">${item.judul}</h4>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+
+        /* ==========================================
+           6. LIGHTBOX & AGENDA MODAL CONTROLS
+           ========================================== */
+        function openLightbox(imgSrc, caption) {
+            const modal = document.getElementById('lightbox-modal');
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox-caption').innerText = caption;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function openAgendaModal() {
+            const modal = document.getElementById('agenda-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeAgendaModal() {
+            const modal = document.getElementById('agenda-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+
+        /* ==========================================
+           7. SHARING & DOWNLOAD HELPERS
+           ========================================== */
+        function shareTo(platform) {
+            const url = window.location.href;
+            const title = currentActiveRumusan ? currentActiveRumusan.judul : document.title;
+            let shareUrl = '';
+
+            if(platform === 'whatsapp') {
+                shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' - ' + url)}`;
+            } else if(platform === 'facebook') {
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            } else if(platform === 'telegram') {
+                shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+            }
+
+            if(shareUrl) window.open(shareUrl, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Tautan berhasil disalin ke clipboard!');
+        }
+
+
+
+        /* ==========================================
+           8. ANIMATIONS & EVENT LISTENERS
+           ========================================== */
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if(window.scrollY > 30) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            if(!document.getElementById('section-baca').classList.contains('hidden')) {
+                const winScroll = document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('reading-progress').style.width = scrolled + '%';
+            }
+        });
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if(menu.classList.contains('opacity-0')) {
+                menu.classList.remove('opacity-0', 'pointer-events-none');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('opacity-0', 'pointer-events-none');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const speed = target / 50;
+                const updateCount = () => {
+                    count += speed;
+                    if(count < target) {
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 20;
+            for(let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}vw`;
+                p.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                p.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(p);
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                openSearchModal();
+            }
+            if(e.key === 'Escape') {
+                closeSearchModal();
+                closeLightbox();
+                closeAgendaModal();
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            animateCounters();
+        });
+        
+    
+</script>
+</body>
+</html>
