@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Majlis Musyawarah Santri (MMS) - Pusat Dokumentasi Bahtsul Masa'il</title>
-    
+    <link rel="icon" type="image/png" href="mms.png">
+
     <!-- Google Fonts: Plus Jakarta Sans & Amiri (untuk nuansa kitab kuning/Arab) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -241,9 +242,11 @@
             font-size: 1.15rem;
             line-height: 2.1;
             color: #2d3748;
+            text-align: justify;
         }
         .reader-content p {
             margin-bottom: 1.5rem;
+            text-align: justify;
         }
         section {
             background: rgba(139, 94, 60, 0.25);
@@ -345,6 +348,47 @@
 <body class="bg-[#fdfbf7] text-gray-800 antialiased selection:bg-yellow-500 selection:text-white">
 
     <!-- ==========================================
+       ROLE LOGIN SCREEN / POPUP
+       ========================================== -->
+    <div id="role-login-screen" class="fixed inset-0 bg-emerald-950/95 backdrop-blur-2xl z-50 flex items-center justify-center p-4 transition-all duration-500">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 border border-yellow-500/30 text-center relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            
+            <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-3xl mx-auto mb-6 shadow-md">
+                <i class="fa-solid fa-book-quran"></i>
+            </div>
+            
+            <h2 class="text-2xl font-extrabold text-emerald-950 font-sans">Majlis Musyawarah Santri</h2>
+            <p class="text-gray-500 text-sm mt-1 mb-8">Silakan pilih hak akses untuk masuk ke website resmi pesantren.</p>
+
+            <div class="space-y-4">
+                <button onclick="loginAsPeserta()" class="w-full btn-emerald py-4 px-6 rounded-2xl font-bold text-base flex items-center justify-center gap-3 transition-all">
+                    <i class="fa-solid fa-user text-yellow-400"></i>
+                    <span>Masuk sebagai Peserta</span>
+                </button>
+                <button onclick="showAdminPrompt()" class="w-full btn-gold py-4 px-6 rounded-2xl font-bold text-base flex items-center justify-center gap-3 transition-all">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Masuk sebagai Admin</span>
+                </button>
+            </div>
+
+            <!-- Admin Password Sub-form / Modal inside popup -->
+            <div id="admin-password-container" class="hidden mt-6 pt-6 border-t border-gray-100 text-left transition-all">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Masukkan Password Admin</label>
+                <div class="relative">
+                    <input type="password" id="admin-password-input" placeholder="Ketik password..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm font-mono">
+                </div>
+                <p id="admin-error-msg" class="text-xs text-red-600 font-medium mt-1.5 hidden">Password salah! Silakan coba lagi.</p>
+                
+                <div class="flex items-center gap-2 mt-4">
+                    <button onclick="cancelAdminLogin()" class="flex-1 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-sm">Batal</button>
+                    <button onclick="verifyAdminPassword()" class="flex-1 btn-gold py-2.5 rounded-xl font-bold text-sm">Masuk</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
        PARTICLE CONTAINER & LIGHT ORBS
        ========================================== -->
     <div id="particles-container" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
@@ -376,6 +420,12 @@
         <div class="flex items-center gap-4">
             <button onclick="openSearchModal()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/20" title="Cari Rumusan">
                 <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <!-- Logout Button (Kecil) -->
+            <button onclick="logoutRole()" class="px-3.5 h-10 rounded-full bg-red-500/20 hover:bg-red-500/40 text-red-300 font-semibold text-xs flex items-center gap-2 transition-colors border border-red-500/30" title="Keluar / Ganti Peran">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="hidden sm:inline">Logout</span>
             </button>
 
             <div class="hidden md:flex items-center gap-3 text-white/80">
@@ -468,7 +518,7 @@
             <div class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mt-auto pt-10">
                 <div class="relative pl-6 border-l-4 border-yellow-500">
                     <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-                        Pondok Pesantren Alhikmah Darussalam
+                        Pondok Pesantren Al Hikmah Darussalam
                     </h2>
                     <p class="text-sm md:text-base text-yellow-200/90 font-medium mt-1">
                         Tepa'nah Barat Durjan Kokop Bangkalan
@@ -545,6 +595,10 @@
                             <option value="terbaru">Urutan Terbaru</option>
                             <option value="terlama">Urutan Terlama</option>
                         </select>
+                        <!-- Tombol Tambah Rumusan (Hanya Admin) -->
+                        <button id="btn-tambah-rumusan" onclick="openAddRumusanModal()" class="btn-gold px-5 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Tambah Rumusan
+                        </button>
                     </div>
                 </div>
 
@@ -670,52 +724,39 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
                     <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
-                        <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-2xl mb-6">
-                            <i class="fa-solid fa-book-bookmark"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-emerald-950 mb-4">Latar Belakang</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            Majlis Musyawarah Santri (MMS) lahir dari kesadaran bersama antar pesantren untuk menjaga tradisi bahtsul masail sebagai metode merespons persoalan umat yang terus berkembang. Berpusat di Pondok Pesantren Alhikmah Darussalam, forum ini mempertemukan para santri pilihan untuk mendiskusikan problematika kontemporer berlandaskan kitab-kitab muktabar.
-                        </p>
-                    </div>
+    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-2xl mb-6">
+        <i class="fa-solid fa-book-bookmark"></i>
+    </div>
 
-                    <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
-                        <div class="w-14 h-14 rounded-2xl bg-yellow-100 text-yellow-800 flex items-center justify-center text-2xl mb-6">
-                            <i class="fa-solid fa-bullseye"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-emerald-950 mb-4">Visi & Misi</h3>
-                        <p class="text-gray-600 leading-relaxed mb-4">
-                            <strong>Visi:</strong> Menjadi pusat rujukan digital rumusan Bahtsul Masa'il yang akurat, interaktif, dan berakar kuat pada turats salafus salih.
-                        </p>
-                        <p class="text-gray-600 leading-relaxed">
-                            <strong>Misi:</strong> Mendokumentasikan seluruh produk hukum Islam secara sistematis, memperkuat ukhuwah antar pesantren, dan melahirkan kader mujtahid penemu solusi masalah zaman.
-                        </p>
-                    </div>
+    <h3 class="text-2xl font-bold text-emerald-950 mb-4">
+        Latar Belakang
+    </h3>
+
+    <p class="text-gray-600 leading-relaxed text-justify">
+        Majlis Musyawarah Santri (MMS) merupakan forum ilmiah yang diselenggarakan sebagai wadah pembinaan dan pengembangan kemampuan berpikir para santri dalam memahami, mengkaji, serta merumuskan persoalan syariat Islam. Berpusat di Pondok Pesantren Al Hikmah Darussalam, forum ini membiasakan santri berdiskusi, berargumentasi, dan mengambil kesimpulan berdasarkan rujukan kitab-kitab muktabar, sehingga tumbuh sikap ilmiah, kritis, teliti, serta bertanggung jawab dalam menghadapi berbagai persoalan keagamaan yang terus berkembang di tengah masyarakat.
+    </p>
+</div>
+
+                   <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+    <div class="w-14 h-14 rounded-2xl bg-yellow-100 text-yellow-800 flex items-center justify-center text-2xl mb-6">
+        <i class="fa-solid fa-bullseye"></i>
+    </div>
+
+    <h3 class="text-2xl font-bold text-emerald-950 mb-4">
+        Visi & Misi
+    </h3>
+
+    <p class="text-gray-600 leading-relaxed mb-4 text-justify">
+        <strong>Visi:</strong> Menjadi forum musyawarah santri yang membentuk generasi berilmu, kritis, dan berakhlak melalui pengkajian syariat Islam berdasarkan khazanah kitab-kitab muktabar.
+    </p>
+
+    <p class="text-gray-600 leading-relaxed text-justify">
+        <strong>Misi:</strong> Membina kemampuan berpikir ilmiah dan analitis para santri melalui tradisi bahtsul masail, menumbuhkan budaya musyawarah yang berlandaskan adab dan dalil, serta mempersiapkan kader ulama yang mampu memahami dan merespons persoalan umat sesuai dengan kaidah syariat Islam.
+    </p>
+</div>
                 </div>
 
-                <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
-                    <h3 class="text-2xl font-bold text-emerald-950 mb-8 text-center">Timeline Sejarah MMS</h3>
-                    <div class="relative border-l-2 border-emerald-800/30 ml-4 md:ml-10 space-y-8">
-                        <div class="relative pl-8">
-                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-800 border-4 border-white shadow"></div>
-                            <span class="text-xs font-bold text-yellow-600 uppercase">Tahun 2021</span>
-                            <h4 class="text-lg font-bold text-emerald-950 mt-1">Inisiasi Awal Forum</h4>
-                            <p class="text-gray-600 mt-1 text-sm">Pertemuan perdana para lurah pondok pesantren di Bangkalan untuk merintis majlis musyawarah terpadu.</p>
-                        </div>
-                        <div class="relative pl-8">
-                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-800 border-4 border-white shadow"></div>
-                            <span class="text-xs font-bold text-yellow-600 uppercase">Tahun 2023</span>
-                            <h4 class="text-lg font-bold text-emerald-950 mt-1">Deklarasi Resmi & Kodifikasi Kitab</h4>
-                            <p class="text-gray-600 mt-1 text-sm">Pengesahan nama Majlis Musyawarah Santri (MMS) dan dimulainya digitalisasi arsip rumusan secara terbatas.</p>
-                        </div>
-                        <div class="relative pl-8">
-                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-800 border-4 border-white shadow"></div>
-                            <span class="text-xs font-bold text-yellow-600 uppercase">Tahun 2026</span>
-                            <h4 class="text-lg font-bold text-emerald-950 mt-1">Peluncuran Perpustakaan Digital Modern</h4>
-                            <p class="text-gray-600 mt-1 text-sm">Transformasi total sistem arsip ke dalam platform web modern berbasis cloud dan open access bagi seluruh santri nusantara.</p>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </section>
 
@@ -749,7 +790,13 @@
                             <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
                                 <span class="text-xs font-bold text-yellow-300 uppercase">As'ilah 1</span>
                                 <h5 class="font-bold text-lg mt-1 text-white">KULIT MUBIN BERMASALAH | Sail: Kelas III Tsanawiyah</h5>
-                                <p class="text-sm text-emerald-100 mt-2">Mubin adalah salah satu santri yang tergolong semangat dalam kegiatan pesantren...</p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify">Mubin adalah salah satu santri yang tergolong semangat dalam kegiatan pesantren. Ia juga terkenal dengan ketelatenannya dalam mengerjakan ibadah. Selain itu, dia termasuk salah satu santri yang terkena penyakit deskuamasi (terkelupasnya kulit). Penyakit itu biasanya banyak timbul ketika habis mandi, terlebih setelah mencuci baju, sehingga dia sangat kewalahan dalam menghilangkan atau mengangkat penyakit tersebut karena mungkin baginya terlalu banyak dan agak menyulitkan.</p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>Suatu hari, ketika ia sedang menelaah dan mempelajari beberapa kitab fikih, ia menemukan sebuah keterangan yang membahas tentang kewajiban membersihkan sesuatu yang dapat menghalangi sampainya air ke anggota wudu. Keterangan tersebut membuatnya mulai berpikir dan mencoba menghubungkannya dengan keadaan yang selama ini ia alami, yaitu kulitnya yang sering mengelupas setelah mandi atau mencuci pakaian. Adapun keterangan yang ia temukan adalah sebagai berikut:</p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><p dir="rtl"><br>(و) الثالث (غسل اليدين إلى المرفقين) فإن لم يكن له مرفقان اعتبر قدرهما، ويجب غسل ما على اليدين من شعر (وسلعة، وأصبع زائدة وأظافير، ويجب إزالة ما تحتها من وسخ يمنع وصول الماء إليه)] فتح القريب ص: 7]</p></p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>Dari keterangan tersebut, Mubin menjadi bingung. Apakah kulit-kulit yang terkelupas tersebut termasuk sil‘ah yang wajib dibasuh ataukah termasuk sesuatu yang dapat menghalangi sampainya air sehingga harus dihilangkan? Selain itu, Mubin juga merasa kebingungan mengenai cara membasuhnya. Sebab, terkadang kulit yang terkelupas tersebut hanya dalam keadaan mengembang atau terangkat, sehingga bagian dalam kulit yang longgar kemungkinan tidak terkena air ketika wudu.</p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br><strong>Pertanyaan:</strong></p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>a.	Langkah apa yang harus diambil oleh Mubin? Apakah ia harus membersihkan semua kulit yang terkelupas atau cukup membasuhnya?</p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>b.	Berdasarkan kutipan yang bergaris bawah diatas, apakah kotoran kuku termasuk pencegah sampainya air pada anggota wudu?</p></p>
                             </div>
                         </div>
                     </div>
@@ -789,7 +836,7 @@
             <div>
                 <h4 class="font-bold text-yellow-400 mb-4 tracking-wider uppercase text-sm">Sekretariat</h4>
                 <p class="text-sm text-emerald-200 leading-relaxed mb-4">
-                    Pondok Pesantren Alhikmah Darussalam<br>
+                    Pondok Pesantren Al Hikmah Darussalam<br>
                     Tepa'nah Barat Durjan Kokop Bangkalan, Jawa Timur
                 </p>
                 <div class="flex items-center gap-4 text-yellow-400 text-lg">
@@ -809,7 +856,7 @@
 
 
     <!-- ==========================================
-       MODALS (SEARCH & LIGHTBOX & AGENDA)
+       MODALS (SEARCH & LIGHTBOX & AGENDA & ADD RUMUSAN)
        ========================================== -->
 
     <!-- Search Modal (Google Gemini / Spotlight Style) -->
@@ -861,12 +908,73 @@
         </div>
     </div>
 
+    <!-- Add Rumusan Modal -->
+    <div id="add-rumusan-modal" class="fixed inset-0 bg-emerald-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto" onclick="closeAddRumusanModal()">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 md:p-8 transform scale-95 transition-all duration-300 relative my-8 max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <button onclick="closeAddRumusanModal()" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center font-bold"><i class="fa-solid fa-xmark"></i></button>
+            
+            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 font-bold text-xs uppercase rounded-full">Form Admin</span>
+            <h3 class="text-2xl font-extrabold text-emerald-950 mt-3">Tambah Rumusan Bahtsul Masa'il</h3>
+            <p class="text-sm text-gray-500 mt-1">Fitur penambahan rumusan hanya diperuntukkan khusus bagi Admin/Ketua MMS. Dilarang menambahkan, mengubah, atau menghapus rumusan tanpa izin resmi.</p>
+
+            <form id="form-tambah-rumusan" onsubmit="handleSaveRumusan(event)" class="mt-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Tema Rumusan</label>
+                    <select id="input-tema" required class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
+                        <option value="">Pilih Tema</option>
+                        <option value="Fiqih Kontemporer">Fiqih Kontemporer</option>
+                        <option value="Muamalah">Muamalah</option>
+                        <option value="Ibadah">Ibadah</option>
+                        <option value="Ushul Fiqh">Ushul Fiqh</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Judul Rumusan</label>
+                    <input type="text" id="input-judul" required placeholder="Contoh: Status Hukum Transaksi..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Isi Rumusan</label>
+                    <p class="text-xs text-gray-500 mb-2">Gunakan format **teks** untuk bold, __teks__ untuk italic, *__teks__* untuk bold-italic.</p>
+                    <textarea id="input-isi" rows="6" required placeholder="**Deskripsi Masalah**&#10;&#10;isi deskripsi..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm font-mono"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Upload Gambar (Opsional)</label>
+                        <input type="file" id="input-gambar" accept="image/*" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-200 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Posisi Gambar</label>
+                        <input type="text" id="input-posisi-gambar" placeholder="cth: setelah paragraf pertama" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Judul Gambar / Caption (Opsional)</label>
+                    <input type="text" id="input-caption" placeholder="Contoh: Gambar ilustrasi yang dibahas" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
+                </div>
+
+                <div class="pt-4 flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeAddRumusanModal()" class="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 text-sm font-bold">Batal</button>
+                    <button type="submit" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold">Simpan Rumusan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <!-- ==========================================
        JAVASCRIPT CODE & DATA STRUCTURE
        ========================================== -->
     <script>
-        const rumusanData = [
+        // Variabel Hak Akses
+        let currentRole = localStorage.getItem('mms_current_role') || null; // 'admin' atau 'peserta'
+        let isAdmin = currentRole === 'admin';
+        let isPeserta = currentRole === 'peserta';
+
+        let rumusanData = [
             {
                 id: 1,
                 judul: "Status Hukum Transaksi Aset Kripto dengan Underlying Asset Emas Digital",
@@ -880,86 +988,98 @@
                     <p><strong>Rumusan Jawaban / Keputusan:</strong> Menurut hasil musyawarah, transaksi tersebut <strong>sah</strong> apabila pihak pengelola (issuer) terbukti menyimpan fisik emas secara nyata dan memberikan hak penarikan (redeem) fisik kepada pembeli sewaktu-waktu. Ini dianalogikan dengan kaidah <em>Al-Qabdh al-Hukmi</em> (serah terima secara hukum/sistem digital yang valid secara syariat).</p>
                     <p class="font-arabic text-right text-xl mt-6">قال الإمام النووي في المجموع: القبض يحصل باختلاف أنواع, ومنه القبض الحكمي المعتبر شرعاً وعورفاً في المعاملات الحديثة.</p>
                 `
-            },
-            {
-                id: 2,
-                judul: "Batas Minimal Thaharah Penggunaan Air Hasil Daur Ulang Industri Modern",
-                tanggal: "28 Februari 2026",
-                tahun: "2026",
-                tema: "Ibadah",
-                estTime: "3 min",
-                isi: `
-                    <p><strong>Deskripsi Masalah:</strong> Kelangkaan air bersih di beberapa wilayah perkotaan mendorong PDAM dan industri menggunakan teknologi <em>Reverse Osmosis</em> tingkat lanjut untuk mendaur ulang air limbah domestik (greywater) menjadi air siap konsumsi dan suci mensucikan.</p>
-                    <p><strong>Pertanyaan (As'ilah):</strong> Sahkah penggunaan air hasil daur ulang tersebut untuk berwudhu dan mandi wajib?</p>
-                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Air hasil daur ulang hukumnya <strong>suci dan mensucikan (ma' thahir mutahhhir)</strong> selama sifat-sifat najisnya (warna, rasa, dan bau) telah hilang secara sempurna melalui proses penjernihan yang memenuhi standar kelayakan thaharah.</p>
-                `
-            },
-            {
-                id: 3,
-                judul: "Pelaksanaan Shalat Jumat di Stasiun Kereta Cepat dan Fasilitas Transit Publik",
-                tanggal: "15 Maret 2025",
-                tahun: "2025",
-                tema: "Fiqih Kontemporer",
-                estTime: "5 min",
-                isi: `
-                    <p><strong>Deskripsi Masalah:</strong> Para musafir jarak jauh yang menggunakan moda transportasi kereta cepat seringkali terjebak waktu perjalanan melampaui hari Jumat, di mana mereka singgah di stasiun transit dalam durasi tertentu.</p>
-                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah dibenarkan mendirikan shalat Jumat di area fasilitas stasiun publik bagi para musafir yang berstatus muqim sementara?</p>
-                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Dibenarkan mendirikan shalat Jumat apabila terpenuhi syarat minimal jumlah jamaah (menurut mazhab Syafii minimal 40 orang yang memenuhi syarat mustawtin atau muqim yang berniat menetap selama pelaksanaan).</p>
-                `
-            },
-            {
-                id: 4,
-                judul: "Keabsahan Wakaf Uang Melalui Platform Fintech Crowdfunding Syariah",
-                tanggal: "10 Agustus 2025",
-                tahun: "2025",
-                tema: "Muamalah",
-                estTime: "4 min",
-                isi: `
-                    <p><strong>Deskripsi Masalah:</strong> Wakaf tunai kini dapat disalurkan melalui aplikasi digital secara massal (crowdfunding) dengan nominal kecil yang dikelola oleh Lembaga Keuangan Syariah Penerima Wakaf Uang (LKSPWU).</p>
-                    <p><strong>Pertanyaan (As'ilah):</strong> Bagaimana keabsahan akad wakaf uang yang dilakukan secara elektronik tanpa penandatanganan akta ikrar wakaf konvensional di hadapan PPAIW?</p>
-                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Wakaf uang tersebut sah secara hukum Islam karena ijab kabul terpenuhi melalui kehendak digital (sighat bil-kitabah/mu'arahah), dan akta ikrar dapat diterbitkan secara elektronik oleh nadzir resmi.</p>
-                `
-            },
-            {
-                id: 5,
-                judul: "Konsep Kepemilikan Hak Cipta (Intellectual Property Rights) Atas Kitab Kuning Digital",
-                tanggal: "05 November 2024",
-                tahun: "2024",
-                tema: "Ushul Fiqh",
-                estTime: "6 min",
-                isi: `
-                    <p><strong>Deskripsi Masalah:</strong> Banyak kitab turats (kuning) yang ditranskripsi ulang ke dalam bentuk aplikasi digital dan diberi anotasi oleh penerbit modern, kemudian diperjualbelikan secara komersial.</p>
-                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah hak cipta digital atas tahqiq kitab turats diakui dalam perlindungan hak kekayaan intelektual syariah (Hifqu al-Huquq al-Maliyah)?</p>
-                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Diakui dan dilindungi, karena jerih payah (tahqiq, tashih, dan anotasi) memiliki nilai ekonomi (mutaqawwam) yang sah untuk dilindungi dari pembajakan komersial tanpa izin.</p>
-                `
-            },
-            {
-                id: 6,
-                judul: "Penggunaan Teknologi AI dalam Menyusun Fatwa Fiqih Kontemporer",
-                tanggal: "20 Desember 2025",
-                tahun: "2025",
-                tema: "Fiqih Kontemporer",
-                estTime: "5 min",
-                isi: `
-                    <p><strong>Deskripsi Masalah:</strong> Lembaga fatwa kini menggunakan algoritma AI untuk menganalisis data hukum Islam dan menghasilkan draft fatwa secara otomatis.</p>
-                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah fatwa yang dihasilkan oleh sistem AI dapat dianggap sah dan mengikat secara syariat?</p>
-                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Fatwa yang dihasilkan oleh AI tidak sah secara hukum Islam jika tidak melalui proses musyawarah ulama yang kompeten. AI hanya berfungsi sebagai alat bantu analisis, bukan pengganti otoritas keilmuan manusia.</p>
-                `
-            },
-            {
-                id: 7,
-                judul: "Kepemilikan dan Pengelolaan Wakaf Digital Berbasis Blockchain",
-                tanggal: "15 Januari 2026",
-                tahun: "2026",
-                tema: "Muamalah",
-                estTime: "6 min",
-                isi: `
-                    <p><strong>Deskripsi Masalah:</strong> Munculnya teknologi blockchain membuka kemungkinan baru dalam pengelolaan wakaf digital, termasuk wakaf uang dan aset lainnya yang dapat dikelola secara transparan dan terdesentralisasi.</p>
-                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah wakaf digital yang dilakukan melalui platform berbasis blockchain dapat dianggap sah dan mengikat secara syariat?</p>
-                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Wakaf digital berbasis blockchain sah jika memenuhi syarat-syarat hukum Islam, termasuk ijab kabul yang jelas, serta adanya pengawasan dari pihak yang kompeten untuk memastikan keabsahan transaksi.</p>
-                `
             }
         ];
+
+        // Load data dari localStorage jika ada
+        const savedRumusan = localStorage.getItem('mms_rumusan_data');
+        if(savedRumusan) {
+            try {
+                rumusanData = JSON.parse(savedRumusan);
+            } catch(e) {
+                console.error("Gagal memuat data localStorage", e);
+            }
+        }
+
+        // Fungsi Cek & Atur Tampilan Login Role
+        function checkRoleLoginState() {
+            const loginScreen = document.getElementById('role-login-screen');
+            if(currentRole) {
+                loginScreen.classList.add('opacity-0', 'pointer-events-none');
+                applyRolePermissions();
+            } else {
+                loginScreen.classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function loginAsPeserta() {
+            currentRole = 'peserta';
+            isAdmin = false;
+            isPeserta = true;
+            localStorage.setItem('mms_current_role', 'peserta');
+            checkRoleLoginState();
+        }
+
+        function showAdminPrompt() {
+            document.getElementById('admin-password-container').classList.remove('hidden');
+            document.getElementById('admin-password-input').focus();
+        }
+
+        function cancelAdminLogin() {
+            document.getElementById('admin-password-container').classList.add('hidden');
+            document.getElementById('admin-password-input').value = '';
+            document.getElementById('admin-error-msg').classList.add('hidden');
+        }
+
+        function verifyAdminPassword() {
+            const pwdInput = document.getElementById('admin-password-input').value;
+            const errorMsg = document.getElementById('admin-error-msg');
+            
+            if(pwdInput === "MMS AL HIKMAH") {
+                currentRole = 'admin';
+                isAdmin = true;
+                isPeserta = false;
+                localStorage.setItem('mms_current_role', 'admin');
+                errorMsg.classList.add('hidden');
+                checkRoleLoginState();
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function logoutRole() {
+            currentRole = null;
+            isAdmin = false;
+            isPeserta = false;
+            localStorage.removeItem('mms_current_role');
+            document.getElementById('admin-password-container').classList.add('hidden');
+            document.getElementById('admin-password-input').value = '';
+            document.getElementById('admin-error-msg').classList.add('hidden');
+            checkRoleLoginState();
+        }
+
+        function applyRolePermissions() {
+            const btnTambah = document.getElementById('btn-tambah-rumusan');
+            if(btnTambah) {
+                if(isAdmin) {
+                    btnTambah.style.display = 'inline-flex';
+                } else {
+                    btnTambah.style.display = 'none';
+                }
+            }
+        }
+
+        function deleteRumusan(id, event) {
+            event.stopPropagation();
+            if(!isAdmin) return;
+            
+            const confirmed = confirm("Apakah Anda yakin ingin menghapus rumusan ini?");
+            if(confirmed) {
+                rumusanData = rumusanData.filter(r => r.id !== id);
+                localStorage.setItem('mms_rumusan_data', JSON.stringify(rumusanData));
+                filterRumusan();
+            }
+        }
 
         function switchSection(sectionId) {
             const sections = ['beranda', 'arsip', 'baca', 'galeri', 'tentang', 'agenda'];
@@ -1003,7 +1123,17 @@
 
             data.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'glass-card bg-white p-6 rounded-3xl flex flex-col justify-between border border-gray-100 shadow-lg hover:shadow-2xl transition-all group';
+                card.className = 'glass-card bg-white p-6 rounded-3xl flex flex-col justify-between border border-gray-100 shadow-lg hover:shadow-2xl transition-all group relative';
+                
+                let deleteButtonHtml = '';
+                if(isAdmin) {
+                    deleteButtonHtml = `
+                        <button onclick="deleteRumusan(${item.id}, event)" class="w-9 h-9 rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center shadow-sm" title="Hapus Rumusan">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    `;
+                }
+
                 card.innerHTML = `
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -1021,6 +1151,7 @@
                                 <i class="fa-solid fa-book-open"></i> Baca
                             </button>
                         </div>
+                        ${deleteButtonHtml}
                     </div>
                 `;
                 grid.appendChild(card);
@@ -1036,7 +1167,7 @@
 
             document.getElementById('reader-tema').innerText = item.tema;
             document.getElementById('reader-tanggal').innerHTML = `<i class="fa-regular fa-calendar mr-1"></i> ${item.tanggal}`;
-            document.getElementById('reader-est-time').innerText = item.estTime;
+            document.getElementById('reader-est-time').innerText = item.estTime || '3 min';
             document.getElementById('reader-judul').innerText = item.judul;
             document.getElementById('reader-isi').innerHTML = item.isi;
 
@@ -1065,14 +1196,13 @@
             renderRumusanCards(filtered);
         }
 
-        // Fungsi baru untuk menangani input langsung pada search bar di Beranda
         function handleHeroSearch(event) {
             const query = event.target.value;
             if (query.trim().length > 0) {
                 openSearchModal();
                 document.getElementById('modal-search-input').value = query;
                 handleGlobalSearch(query);
-                event.target.value = ''; // Reset input inline setelah modal terbuka
+                event.target.value = '';
             }
         }
 
@@ -1091,6 +1221,122 @@
             modal.classList.add('opacity-0', 'pointer-events-none');
             box.classList.remove('scale-100');
             box.classList.add('scale-95');
+        }
+
+        function openAddRumusanModal() {
+            if(!isAdmin) return;
+            const modal = document.getElementById('add-rumusan-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeAddRumusanModal() {
+            const modal = document.getElementById('add-rumusan-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('form-tambah-rumusan').reset();
+        }
+
+        // Parser Sederhana untuk Format Teks & Penempatan Gambar
+        function parseRumusanText(rawText) {
+            let formatted = rawText
+                .replace(/\*__([\s\S]*?)__\*/g, '<strong><em>$1</em></strong>')
+                .replace(/__([\s\S]*?)__/g, '<em>$1</em>')
+                .replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
+
+            let paragraphs = formatted.split(/\r?\n\s*\r?\n/);
+            return paragraphs.map(p => `<p class="text-justify">${p.trim()}</p>`).join('');
+        }
+
+        function handleSaveRumusan(event) {
+            event.preventDefault();
+            if(!isAdmin) return;
+
+            const tema = document.getElementById('input-tema').value;
+            const judul = document.getElementById('input-judul').value;
+            const rawIsi = document.getElementById('input-isi').value;
+            const posisiGambar = document.getElementById('input-posisi-gambar').value.toLowerCase().trim();
+            const captionGambar = document.getElementById('input-caption').value;
+            const imageFile = document.getElementById('input-gambar').files[0];
+
+            let parsedContent = parseRumusanText(rawIsi);
+
+            const finishSave = (imgHtmlTag = '') => {
+                if(imgHtmlTag) {
+                    if(posisiGambar.includes('setelah paragraf pertama')) {
+                        parsedContent = parsedContent.replace('</p>', `</p>${imgHtmlTag}`);
+                    } else if(posisiGambar.includes('setelah paragraf kedua')) {
+                        let parts = parsedContent.split('</p>');
+                        if(parts.length >= 2) {
+                            parts[1] = parts[1] + `</p>${imgHtmlTag}`;
+                            parsedContent = parts.join('</p>');
+                        } else {
+                            parsedContent += imgHtmlTag;
+                        }
+                    } else if(posisiGambar.includes('setelah tulisan')) {
+                        let keyword = posisiGambar.replace('setelah tulisan', '').trim();
+                        if(keyword && parsedContent.toLowerCase().includes(keyword)) {
+                            let regex = new RegExp(`([^<]*?${keyword}[^<]*?)<\/p>`, 'i');
+                            if(regex.test(parsedContent)) {
+                                parsedContent = parsedContent.replace(regex, `$1</p>${imgHtmlTag}`);
+                            } else {
+                                parsedContent += imgHtmlTag;
+                            }
+                        } else {
+                            parsedContent += imgHtmlTag;
+                        }
+                    } else {
+                        parsedContent += imgHtmlTag;
+                    }
+                }
+
+                const now = new Date();
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                const tanggalStr = now.toLocaleDateString('id-ID', options);
+                const tahunStr = now.getFullYear().toString();
+
+                const newId = rumusanData.length > 0 ? Math.max(...rumusanData.map(r => r.id)) + 1 : 1;
+
+                const newRumusan = {
+                    id: newId,
+                    judul: judul,
+                    tanggal: tanggalStr,
+                    tahun: tahunStr,
+                    tema: tema,
+                    estTime: '4 min',
+                    isi: parsedContent
+                };
+
+                rumusanData.unshift(newRumusan);
+                localStorage.setItem('mms_rumusan_data', JSON.stringify(rumusanData));
+
+                closeAddRumusanModal();
+                switchSection('arsip');
+            };
+
+            if(imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgSrc = e.target.result;
+                    const imgHtmlTag = `
+                        <div class="my-6 text-center">
+                            <img src="${imgSrc}" alt="${captionGambar || 'Gambar Rumusan'}" class="mx-auto rounded-2xl max-h-[400px] shadow-lg border border-gray-200">
+                            ${captionGambar ? `<p class="text-sm text-gray-500 italic mt-2">${captionGambar}</p>` : ''}
+                        </div>
+                    `;
+                    finishSave(imgHtmlTag);
+                };
+                reader.readAsDataURL(imageFile);
+            } else if(posisiGambar && captionGambar) {
+                const imgHtmlTag = `
+                    <div class="my-6 p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-300 text-center text-gray-500">
+                        <i class="fa-solid fa-image text-3xl mb-2 text-yellow-500"></i>
+                        <p class="text-sm font-medium">[GAMBAR]</p>
+                        ${captionGambar ? `<p class="text-sm italic mt-1">${captionGambar}</p>` : ''}
+                    </div>
+                `;
+                finishSave(imgHtmlTag);
+            } else {
+                finishSave();
+            }
         }
 
         function handleGlobalSearch(query) {
@@ -1248,12 +1494,14 @@
                 closeSearchModal();
                 closeLightbox();
                 closeAgendaModal();
+                closeAddRumusanModal();
             }
         });
 
         window.addEventListener('DOMContentLoaded', () => {
             createParticles();
             animateCounters();
+            checkRoleLoginState();
         });
     </script>
 </body>
