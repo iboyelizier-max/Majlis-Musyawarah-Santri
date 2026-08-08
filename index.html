@@ -348,47 +348,6 @@
 <body class="bg-[#fdfbf7] text-gray-800 antialiased selection:bg-yellow-500 selection:text-white">
 
     <!-- ==========================================
-       ROLE LOGIN SCREEN / POPUP
-       ========================================== -->
-    <div id="role-login-screen" class="fixed inset-0 bg-emerald-950/95 backdrop-blur-2xl z-50 flex items-center justify-center p-4 transition-all duration-500">
-        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 border border-yellow-500/30 text-center relative overflow-hidden">
-            <div class="absolute -top-12 -right-12 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl pointer-events-none"></div>
-            
-            <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-3xl mx-auto mb-6 shadow-md">
-                <i class="fa-solid fa-book-quran"></i>
-            </div>
-            
-            <h2 class="text-2xl font-extrabold text-emerald-950 font-sans">Majlis Musyawarah Santri</h2>
-            <p class="text-gray-500 text-sm mt-1 mb-8">Silakan pilih hak akses untuk masuk ke website resmi pesantren.</p>
-
-            <div class="space-y-4">
-                <button onclick="loginAsPeserta()" class="w-full btn-emerald py-4 px-6 rounded-2xl font-bold text-base flex items-center justify-center gap-3 transition-all">
-                    <i class="fa-solid fa-user text-yellow-400"></i>
-                    <span>Masuk sebagai Peserta</span>
-                </button>
-                <button onclick="showAdminPrompt()" class="w-full btn-gold py-4 px-6 rounded-2xl font-bold text-base flex items-center justify-center gap-3 transition-all">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <span>Masuk sebagai Admin</span>
-                </button>
-            </div>
-
-            <!-- Admin Password Sub-form / Modal inside popup -->
-            <div id="admin-password-container" class="hidden mt-6 pt-6 border-t border-gray-100 text-left transition-all">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Masukkan Password Admin</label>
-                <div class="relative">
-                    <input type="password" id="admin-password-input" placeholder="Ketik password..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm font-mono">
-                </div>
-                <p id="admin-error-msg" class="text-xs text-red-600 font-medium mt-1.5 hidden">Password salah! Silakan coba lagi.</p>
-                
-                <div class="flex items-center gap-2 mt-4">
-                    <button onclick="cancelAdminLogin()" class="flex-1 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-sm">Batal</button>
-                    <button onclick="verifyAdminPassword()" class="flex-1 btn-gold py-2.5 rounded-xl font-bold text-sm">Masuk</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==========================================
        PARTICLE CONTAINER & LIGHT ORBS
        ========================================== -->
     <div id="particles-container" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
@@ -420,12 +379,6 @@
         <div class="flex items-center gap-4">
             <button onclick="openSearchModal()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/20" title="Cari Rumusan">
                 <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-
-            <!-- Logout Button (Kecil) -->
-            <button onclick="logoutRole()" class="px-3.5 h-10 rounded-full bg-red-500/20 hover:bg-red-500/40 text-red-300 font-semibold text-xs flex items-center gap-2 transition-colors border border-red-500/30" title="Keluar / Ganti Peran">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="hidden sm:inline">Logout</span>
             </button>
 
             <div class="hidden md:flex items-center gap-3 text-white/80">
@@ -595,8 +548,7 @@
                             <option value="terbaru">Urutan Terbaru</option>
                             <option value="terlama">Urutan Terlama</option>
                         </select>
-                        <!-- Tombol Tambah Rumusan (Hanya Admin) -->
-                        <button id="btn-tambah-rumusan" onclick="openAddRumusanModal()" class="btn-gold px-5 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
+                        <button onclick="openAddRumusanModal()" class="btn-gold px-5 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
                             <i class="fa-solid fa-plus"></i> Tambah Rumusan
                         </button>
                     </div>
@@ -969,11 +921,6 @@
        JAVASCRIPT CODE & DATA STRUCTURE
        ========================================== -->
     <script>
-        // Variabel Hak Akses
-        let currentRole = localStorage.getItem('mms_current_role') || null; // 'admin' atau 'peserta'
-        let isAdmin = currentRole === 'admin';
-        let isPeserta = currentRole === 'peserta';
-
         let rumusanData = [
             {
                 id: 1,
@@ -998,86 +945,6 @@
                 rumusanData = JSON.parse(savedRumusan);
             } catch(e) {
                 console.error("Gagal memuat data localStorage", e);
-            }
-        }
-
-        // Fungsi Cek & Atur Tampilan Login Role
-        function checkRoleLoginState() {
-            const loginScreen = document.getElementById('role-login-screen');
-            if(currentRole) {
-                loginScreen.classList.add('opacity-0', 'pointer-events-none');
-                applyRolePermissions();
-            } else {
-                loginScreen.classList.remove('opacity-0', 'pointer-events-none');
-            }
-        }
-
-        function loginAsPeserta() {
-            currentRole = 'peserta';
-            isAdmin = false;
-            isPeserta = true;
-            localStorage.setItem('mms_current_role', 'peserta');
-            checkRoleLoginState();
-        }
-
-        function showAdminPrompt() {
-            document.getElementById('admin-password-container').classList.remove('hidden');
-            document.getElementById('admin-password-input').focus();
-        }
-
-        function cancelAdminLogin() {
-            document.getElementById('admin-password-container').classList.add('hidden');
-            document.getElementById('admin-password-input').value = '';
-            document.getElementById('admin-error-msg').classList.add('hidden');
-        }
-
-        function verifyAdminPassword() {
-            const pwdInput = document.getElementById('admin-password-input').value;
-            const errorMsg = document.getElementById('admin-error-msg');
-            
-            if(pwdInput === "MMS AL HIKMAH") {
-                currentRole = 'admin';
-                isAdmin = true;
-                isPeserta = false;
-                localStorage.setItem('mms_current_role', 'admin');
-                errorMsg.classList.add('hidden');
-                checkRoleLoginState();
-            } else {
-                errorMsg.classList.remove('hidden');
-            }
-        }
-
-        function logoutRole() {
-            currentRole = null;
-            isAdmin = false;
-            isPeserta = false;
-            localStorage.removeItem('mms_current_role');
-            document.getElementById('admin-password-container').classList.add('hidden');
-            document.getElementById('admin-password-input').value = '';
-            document.getElementById('admin-error-msg').classList.add('hidden');
-            checkRoleLoginState();
-        }
-
-        function applyRolePermissions() {
-            const btnTambah = document.getElementById('btn-tambah-rumusan');
-            if(btnTambah) {
-                if(isAdmin) {
-                    btnTambah.style.display = 'inline-flex';
-                } else {
-                    btnTambah.style.display = 'none';
-                }
-            }
-        }
-
-        function deleteRumusan(id, event) {
-            event.stopPropagation();
-            if(!isAdmin) return;
-            
-            const confirmed = confirm("Apakah Anda yakin ingin menghapus rumusan ini?");
-            if(confirmed) {
-                rumusanData = rumusanData.filter(r => r.id !== id);
-                localStorage.setItem('mms_rumusan_data', JSON.stringify(rumusanData));
-                filterRumusan();
             }
         }
 
@@ -1123,17 +990,7 @@
 
             data.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'glass-card bg-white p-6 rounded-3xl flex flex-col justify-between border border-gray-100 shadow-lg hover:shadow-2xl transition-all group relative';
-                
-                let deleteButtonHtml = '';
-                if(isAdmin) {
-                    deleteButtonHtml = `
-                        <button onclick="deleteRumusan(${item.id}, event)" class="w-9 h-9 rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center shadow-sm" title="Hapus Rumusan">
-                            <i class="fa-solid fa-trash-can text-sm"></i>
-                        </button>
-                    `;
-                }
-
+                card.className = 'glass-card bg-white p-6 rounded-3xl flex flex-col justify-between border border-gray-100 shadow-lg hover:shadow-2xl transition-all group';
                 card.innerHTML = `
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -1151,7 +1008,6 @@
                                 <i class="fa-solid fa-book-open"></i> Baca
                             </button>
                         </div>
-                        ${deleteButtonHtml}
                     </div>
                 `;
                 grid.appendChild(card);
@@ -1224,7 +1080,6 @@
         }
 
         function openAddRumusanModal() {
-            if(!isAdmin) return;
             const modal = document.getElementById('add-rumusan-modal');
             modal.classList.remove('opacity-0', 'pointer-events-none');
         }
@@ -1237,19 +1092,19 @@
 
         // Parser Sederhana untuk Format Teks & Penempatan Gambar
         function parseRumusanText(rawText) {
+            // Konversi format teks markdown sederhana
             let formatted = rawText
                 .replace(/\*__([\s\S]*?)__\*/g, '<strong><em>$1</em></strong>')
                 .replace(/__([\s\S]*?)__/g, '<em>$1</em>')
                 .replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
 
+            // Mempertahankan enter & spasi antar paragraf
             let paragraphs = formatted.split(/\r?\n\s*\r?\n/);
             return paragraphs.map(p => `<p class="text-justify">${p.trim()}</p>`).join('');
         }
 
         function handleSaveRumusan(event) {
             event.preventDefault();
-            if(!isAdmin) return;
-
             const tema = document.getElementById('input-tema').value;
             const judul = document.getElementById('input-judul').value;
             const rawIsi = document.getElementById('input-isi').value;
@@ -1274,6 +1129,7 @@
                     } else if(posisiGambar.includes('setelah tulisan')) {
                         let keyword = posisiGambar.replace('setelah tulisan', '').trim();
                         if(keyword && parsedContent.toLowerCase().includes(keyword)) {
+                            // Sisipkan setelah tag penutup p yang mengandung keyword atau setelah teks tersebut
                             let regex = new RegExp(`([^<]*?${keyword}[^<]*?)<\/p>`, 'i');
                             if(regex.test(parsedContent)) {
                                 parsedContent = parsedContent.replace(regex, `$1</p>${imgHtmlTag}`);
@@ -1326,6 +1182,7 @@
                 };
                 reader.readAsDataURL(imageFile);
             } else if(posisiGambar && captionGambar) {
+                // Jika tidak ada file gambar namun ada caption/posisi dummy
                 const imgHtmlTag = `
                     <div class="my-6 p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-300 text-center text-gray-500">
                         <i class="fa-solid fa-image text-3xl mb-2 text-yellow-500"></i>
@@ -1501,7 +1358,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             createParticles();
             animateCounters();
-            checkRoleLoginState();
         });
     </script>
 </body>
