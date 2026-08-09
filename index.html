@@ -52,6 +52,12 @@
 
     <!-- Custom CSS Premium -->
     <style>
+        html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
         /* ==========================================
            VARIABLES & RESET
            ========================================== */
@@ -343,6 +349,7 @@
             position:relative;
             z-index:1;
         }
+        
     </style>
 </head>
 <body class="bg-[#fdfbf7] text-gray-800 antialiased selection:bg-yellow-500 selection:text-white">
@@ -376,10 +383,6 @@
         </nav>
 
         <!-- Right Side Icons & Mobile Menu Trigger -->
-        <div class="flex items-center gap-4">
-            <button onclick="openSearchModal()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/20" title="Cari Rumusan">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
 
             <div class="hidden md:flex items-center gap-3 text-white/80">
                 <a href="https://www.youtube.com/@alhikmahdarussalam1980" target="_blank" class="hover:text-yellow-400 hover:scale-110 transition-all duration-300"><i class="fa-brands fa-youtube"></i></a>
@@ -445,7 +448,7 @@
                         <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 group-hover:scale-105 transition-transform">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input type="text" id="hero-inline-search" placeholder="Cari rumusan, tema, atau teks kitab (Arab/Latin)..." oninput="handleHeroSearch(event)" onclick="event.stopPropagation()" class="w-full bg-transparent text-white placeholder-white/70 text-base md:text-lg font-light focus:outline-none">
+                        <input type="text" id="hero-inline-search" placeholder="Cari rumusan MMS disini..." oninput="handleHeroSearch(event)" onclick="event.stopPropagation()" class="w-full bg-transparent text-white placeholder-white/70 text-base md:text-lg font-light focus:outline-none">
                         <div class="ml-auto pr-4 hidden sm:flex items-center gap-2">
                             <span class="text-xs py-1 px-2.5 rounded bg-black/30 text-yellow-300 font-mono">Enter</span>
                         </div>
@@ -520,7 +523,7 @@
                 <div class="text-center max-w-3xl mx-auto mb-12">
                     <span class="text-emerald-700 font-bold uppercase tracking-widest text-xs py-1 px-3 bg-emerald-100 rounded-full">Perpustakaan Digital</span>
                     <h2 class="text-3xl md:text-5xl font-extrabold text-emerald-950 mt-3 font-sans">Arsip Rumusan Bahtsul Masa'il</h2>
-                    <p class="text-gray-600 mt-4 text-base md:text-lg">Pusat dokumentasi dan referensi ilmiah hasil keputusan musyawarah antar pesantren.</p>
+                    <p class="text-gray-600 mt-4 text-base md:text-lg">Pusat dokumentasi dan referensi ilmiah hasil keputusan Majlis Musyawarah Santri.</p>
                 </div>
 
                 <div class="bg-white p-6 rounded-3xl shadow-xl border border-gray-100 mb-10 flex flex-wrap items-center justify-between gap-4">
@@ -548,9 +551,7 @@
                             <option value="terbaru">Urutan Terbaru</option>
                             <option value="terlama">Urutan Terlama</option>
                         </select>
-                        <button onclick="openAddRumusanModal()" class="btn-gold px-5 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
-                            <i class="fa-solid fa-plus"></i> Tambah Rumusan
-                        </button>
+                        
                     </div>
                 </div>
 
@@ -601,11 +602,12 @@
                     <div class="mt-12 pt-8 border-t border-gray-100 flex flex-wrap items-center justify-between gap-6">
                         <div class="flex items-center gap-3">
                             <span class="text-sm font-bold text-gray-700">Bagikan:</span>
-                            <button onclick="shareTo('whatsapp')" class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 hover:bg-emerald-800 hover:text-white transition-colors flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></button>
-                            <button onclick="shareTo('facebook')" class="w-10 h-10 rounded-full bg-blue-100 text-blue-800 hover:bg-blue-600 hover:text-white transition-colors flex items-center justify-center"><i class="fa-brands fa-facebook-f"></i></button>
-                            <button onclick="shareTo('telegram')" class="w-10 h-10 rounded-full bg-sky-100 text-sky-800 hover:bg-sky-500 hover:text-white transition-colors flex items-center justify-center"><i class="fa-brands fa-telegram"></i></button>
-                            <button onclick="copyLink()" class="w-10 h-10 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-800 hover:text-white transition-colors flex items-center justify-center" title="Salin Tautan"><i class="fa-solid fa-link"></i></button>
-                        </div>
+<button 
+    onclick="shareToWhatsApp()" 
+    class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 hover:bg-emerald-800 hover:text-white transition-colors flex items-center justify-center"
+    title="Bagikan ke WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</button>                        </div>
                         
                         <div class="flex items-center gap-4">
                             <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200 font-semibold text-sm flex items-center gap-2 transition-colors">
@@ -621,46 +623,458 @@
         <!-- ==========================================
            SECTION 4: GALERI KEGIATAN (MASONRY)
            ========================================== -->
-        <section id="section-galeri" class="min-h-screen pt-28 pb-20 px-6 md:px-16 hidden">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="text-emerald-700 font-bold uppercase tracking-widest text-xs py-1 px-3 bg-emerald-100 rounded-full">Dokumentasi Visual</span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-emerald-950 mt-3 font-sans">Galeri Kegiatan MMS</h2>
-                    <p class="text-gray-600 mt-4 text-base md:text-lg">Kumpulan momen terbaik dari seluruh rangkaian kegiatan Majlis Musyawarah Santri.</p>
-                </div>
+<section id="section-galeri" class="min-h-screen pt-28 pb-20 px-6 md:px-16 hidden">
+    <div class="max-w-7xl mx-auto">
 
-                <div class="masonry-grid">
-                    <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openLightbox('foto1.jpg', 'Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026')">
-                        <img loading="eager" decoding="async" fetchpriority="high" src="foto1.jpg" alt="Galeri 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-                            <span class="text-xs font-bold text-yellow-400 uppercase">15 Januari 2026</span>
-                            <h3 class="text-white font-bold text-lg mt-1">Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026</h3>
-                        </div>
-                    </div>
-                    <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openLightbox('foto2.JPG', 'Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026')">
-                        <img loading="eager" decoding="async" fetchpriority="high" src="foto2.JPG" alt="Galeri 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-                            <span class="text-xs font-bold text-yellow-400 uppercase">20 Januari 2026</span>
-                            <h3 class="text-white font-bold text-lg mt-1">Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026</h3>
-                        </div>
-                    </div>
-                    <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openLightbox('foto3.jpg', 'Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026')">
-                        <img loading="eager" decoding="async" fetchpriority="high" src="foto3.jpg" alt="Galeri 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-                            <span class="text-xs font-bold text-yellow-400 uppercase">25 Januari 2026</span>
-                            <h3 class="text-white font-bold text-lg mt-1">Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026</h3>
-                        </div>
-                    </div>
-                    <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openLightbox('foto4.jpg', 'Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026')">
-                        <img loading="eager" decoding="async" fetchpriority="high" src="foto4.jpg" alt="Galeri 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-                            <span class="text-xs font-bold text-yellow-400 uppercase">30 Januari 2026</span>
-                            <h3 class="text-white font-bold text-lg mt-1">Musyawarah Akbar Bahtsul Masa’il Santri Se-Jawa Timur 2026</h3>
-                        </div>
-                    </div>
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="text-emerald-700 font-bold uppercase tracking-widest text-xs py-1 px-3 bg-emerald-100 rounded-full">
+                Dokumentasi Visual
+            </span>
+
+            <h2 class="text-3xl md:text-5xl font-extrabold text-emerald-950 mt-3 font-sans">
+                Galeri Kegiatan MMS
+            </h2>
+
+            <p class="text-gray-600 mt-4 text-base md:text-lg">
+                Kumpulan momen terbaik dari seluruh rangkaian kegiatan Majlis Musyawarah Santri.
+            </p>
+        </div>
+
+        <div class="masonry-grid">
+
+            <!-- =====================================================
+                 TAMBAH FOTO BARU DI BAWAH KOMENTAR INI
+                 FOTO TERBARU SELALU DILETAKKAN PALING ATAS
+                 ===================================================== -->
+
+
+            <!-- FOTO 17 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto17.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-37')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto17.jpeg"
+                     alt="Galeri 17"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Dokumentasi Majlis Musyawarah Santri ke-37
+                    </h3>
+
                 </div>
             </div>
-        </section>
+            
+            <!-- FOTO 16 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto16.jpeg', 'Potret Notulen Majlis Musyawarah Santri ke-36')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto16.jpeg"
+                     alt="Galeri 16"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Potret Notulen Majlis Musyawarah Santri ke-36
+                    </h3>
+
+                </div>
+            </div>
+            
+            <!-- FOTO 15 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto15.jpeg', 'Potret Moderator Majlis Musyawarah Santri ke-35')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto15.jpeg"
+                     alt="Galeri 15"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Potret Moderator Majlis Musyawarah Santri ke-35
+                    </h3>
+
+                </div>
+            </div>
+            
+            <!-- FOTO 14 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto14.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto14.jpeg"
+                     alt="Galeri 14"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Dokumentasi Majlis Musyawarah Santri ke-35
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 13 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto13.jpeg', 'Potret Delegasi Sedang Menjawab Pertanyaan')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto13.jpeg"
+                     alt="Galeri 13"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Potret Delegasi Sedang Menjawab Pertanyaan
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 12 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto12.jpeg', 'Sekumpulan Perumus Majlis Musyawarah Santri ke-35')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto12.jpeg"
+                     alt="Galeri 12"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Sekumpulan Perumus Majlis Musyawarah Santri ke-35
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 11 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto11.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto11.jpeg"
+                     alt="Galeri 11"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Dokumentasi Majlis Musyawarah Santri ke-35
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 10 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto10.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto10.jpeg"
+                     alt="Galeri 10"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Dokumentasi Majlis Musyawarah Santri ke-35
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 9 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto9.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto9.jpeg"
+                     alt="Galeri 9"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Dokumentasi Majlis Musyawarah Santri ke-35
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 8 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto8.jpeg', 'Sambutan Ketua Majlis Musyawarah Santri ke-35')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto8.jpeg"
+                     alt="Galeri 8"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Sambutan Ketua Majlis Musyawarah Santri ke-35
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 7 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto7.jpeg', 'Pembukaan Majlis Musyawarah Santri ke-35')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto7.jpeg"
+                     alt="Galeri 7"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Pembukaan Majlis Musyawarah Santri ke-35
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 6 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto6.jpeg', 'Mushohhih Majlis Musyawarah Santri')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto6.jpeg"
+                     alt="Galeri 6"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Mushohhih Majlis Musyawarah Santri
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 5 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto5.jpeg', 'Perumus Majlis Musyawarah Santri')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto5.jpeg"
+                     alt="Galeri 5"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        27 September 2025
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Perumus Majlis Musyawarah Santri
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 4 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto4.jpg', 'Peserta MMS dalam diskusi')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto4.jpg"
+                     alt="Galeri 4"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        11 Oktober 2024
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Peserta MMS dalam diskusi
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 3 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto3.jpg', 'Kompromi group peserta Majlis Musyawarah Santri')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto3.jpg"
+                     alt="Galeri 3"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        11 Oktober 2024
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Kompromi group peserta Majlis Musyawarah Santri
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 2 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto2.JPG', 'Peserta MMS berebut kesempatan untuk menjawab')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto2.JPG"
+                     alt="Galeri 2"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        05 April 2021
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Peserta MMS berebut kesempatan untuk menjawab
+                    </h3>
+
+                </div>
+            </div>
+
+
+            <!-- FOTO 1 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
+                 onclick="openLightbox('foto1.jpg', 'Pemandangan Majlis Musyawarah Santri dari arah belakang')">
+
+                <img loading="eager"
+                     decoding="async"
+                     fetchpriority="high"
+                     src="foto1.jpg"
+                     alt="Galeri 1"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+
+                    <span class="text-xs font-bold text-yellow-400 uppercase">
+                        15 Agustus 2022
+                    </span>
+
+                    <h3 class="text-white font-bold text-lg mt-1">
+                        Pemandangan Majlis Musyawarah Santri dari arah belakang
+                    </h3>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+```
+
 
 
         <!-- ==========================================
@@ -731,8 +1145,8 @@
                         <div>
                             <span class="px-3 py-1 bg-yellow-500 text-emerald-950 font-bold text-xs uppercase rounded-full">Bahtsul Masa'il</span>
                             <h3 class="text-2xl md:text-3xl font-extrabold mt-3 text-white">Majlis Musyawarah Santri</h3>
-                            <p class="text-emerald-200 mt-1"><i class="fa-regular fa-calendar mr-2 text-yellow-400"></i> Senin, 10 Agustus 2026 | Pukul 19.30 WIB - Selesai</p>
-                            <p class="text-emerald-200 mt-1"><i class="fa-solid fa-location-dot mr-2 text-yellow-400"></i> Aula Utama Pondok Pesantren Al Hikmah Darussalam</p>
+                            <p class="text-emerald-200 mt-1"><i class="fa-regular fa-calendar mr-2 text-yellow-400"></i> Senin Malam Selasa, 10 Agustus 2026 | Pukul 19.30 WIB - Selesai</p>
+                            <p class="text-emerald-200 mt-1"><i class="fa-solid fa-location-dot mr-2 text-yellow-400"></i> Mushalla Pondok Pesantren Al Hikmah Darussalam</p>
                         </div>
                     </div>
 
@@ -744,7 +1158,7 @@
                                 <h5 class="font-bold text-lg mt-1 text-white">KULIT MUBIN BERMASALAH | Sail: Kelas III Tsanawiyah</h5>
                                 <p class="text-sm text-emerald-100 mt-2"><p class="text-justify">Mubin adalah salah satu santri yang tergolong semangat dalam kegiatan pesantren. Ia juga terkenal dengan ketelatenannya dalam mengerjakan ibadah. Selain itu, dia termasuk salah satu santri yang terkena penyakit deskuamasi (terkelupasnya kulit). Penyakit itu biasanya banyak timbul ketika habis mandi, terlebih setelah mencuci baju, sehingga dia sangat kewalahan dalam menghilangkan atau mengangkat penyakit tersebut karena mungkin baginya terlalu banyak dan agak menyulitkan.</p></p>
                                 <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>Suatu hari, ketika ia sedang menelaah dan mempelajari beberapa kitab fikih, ia menemukan sebuah keterangan yang membahas tentang kewajiban membersihkan sesuatu yang dapat menghalangi sampainya air ke anggota wudu. Keterangan tersebut membuatnya mulai berpikir dan mencoba menghubungkannya dengan keadaan yang selama ini ia alami, yaitu kulitnya yang sering mengelupas setelah mandi atau mencuci pakaian. Adapun keterangan yang ia temukan adalah sebagai berikut:</p></p>
-                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><p dir="rtl"><br>(و) الثالث (غسل اليدين إلى المرفقين) فإن لم يكن له مرفقان اعتبر قدرهما، ويجب غسل ما على اليدين من شعر (وسلعة، وأصبع زائدة وأظافير، ويجب إزالة ما تحتها من وسخ يمنع وصول الماء إليه)] فتح القريب ص: 7]</p></p></p>
+                                <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><p dir="rtl"><br>(و) الثالث (غسل اليدين إلى المرفقين) فإن لم يكن له مرفقان اعتبر قدرهما، ويجب غسل ما على اليدين من شعر (وسلعة، وأصبع زائدة وأظافير، <u>ويجب إزالة ما تحتها من وسخ يمنع وصول الماء إليه)</u>] فتح القريب ص: 7]</p></p></p>
                                 <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>Dari keterangan tersebut, Mubin menjadi bingung. Apakah kulit-kulit yang terkelupas tersebut termasuk sil‘ah yang wajib dibasuh ataukah termasuk sesuatu yang dapat menghalangi sampainya air sehingga harus dihilangkan? Selain itu, Mubin juga merasa kebingungan mengenai cara membasuhnya. Sebab, terkadang kulit yang terkelupas tersebut hanya dalam keadaan mengembang atau terangkat, sehingga bagian dalam kulit yang longgar kemungkinan tidak terkena air ketika wudu.</p></p>
                                 <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br><strong>Pertanyaan:</strong></p></p>
                                 <p class="text-sm text-emerald-100 mt-2"><p class="text-justify"><br>a.	Langkah apa yang harus diambil oleh Mubin? Apakah ia harus membersihkan semua kulit yang terkelupas atau cukup membasuhnya?</p></p>
@@ -924,17 +1338,351 @@
         let rumusanData = [
             {
                 id: 1,
-                judul: "Status Hukum Transaksi Aset Kripto dengan Underlying Asset Emas Digital",
+                judul: "DOUBLE WUDHU’ | Sail: F.Fathul Qorib",
                 tanggal: "12 Januari 2026",
                 tahun: "2026",
-                tema: "Fiqih Kontemporer",
-                estTime: "4 min",
+                tema: "Ubudiyah",
+                estTime: "5 min",
                 isi: `
-                    <p><strong>Deskripsi Masalah:</strong> Perkembangan teknologi finansial dewasa ini memunculkan instrumen investasi baru berupa aset kripto yang di-back-up secara langsung oleh fisik emas murni di brankas terverifikasi. Transaksi dilakukan secara peer-to-peer menggunakan teknologi blockchain tanpa kehadiran fisik emas secara langsung pada saat akad.</p>
-                    <p><strong>Pertanyaan (As'ilah):</strong> Apakah kepemilikan aset kripto dengan <em>underlying asset</em> emas digital ini memenuhi syarat qabdhi (serah terima) dalam akad sharf (pertukaran mata uang/emas)?</p>
-                    <p><strong>Rumusan Jawaban / Keputusan:</strong> Menurut hasil musyawarah, transaksi tersebut <strong>sah</strong> apabila pihak pengelola (issuer) terbukti menyimpan fisik emas secara nyata dan memberikan hak penarikan (redeem) fisik kepada pembeli sewaktu-waktu. Ini dianalogikan dengan kaidah <em>Al-Qabdh al-Hukmi</em> (serah terima secara hukum/sistem digital yang valid secara syariat).</p>
-                    <p class="font-arabic text-right text-xl mt-6">قال الإمام النووي في المجموع: القبض يحصل باختلاف أنواع, ومنه القبض الحكمي المعتبر شرعاً وعورفاً في المعاملات الحديثة.</p>
-                `
+                    <p><strong>Deskripsi Masalah</strong> <br> Sebut saja zaki, bisa dikatakan kalau ia tak pernah putus whudu’ dan meski sedemikian, ia tidak pernah lupa dalam memperbarui whudu’nya tatkala ia mau mengerjakan sholat, namun suatu ketika saat ia akan memperbarui whudu’nya, ia lupa kalau ia dalam keadaaan punya whudu’ akhirnya ia melakukan whudu’ dengan niat fardhu.</p>
+                    <p><strong>Pertanyaan:</strong> <br> a. Bagaimanakah status whudu’ zaki seperti dalam kasus di atas?</p>
+                    <p><strong>Jawaban:</strong> <br> Tetap mendapatkan kesunahan tajdid al whudu’ menurut imam ibnu hajar, namun menurut imam romli tidak mendapat kesunahan.</p>
+                    <p><strong>Referensi:</strong> <br>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>فتح المعين (1/ 37):</strong> <br>
+    ( وفروضه ستة ) أحدها ( نية ) وضوء أو أداء ( فرض وضوء ) أو رفع حدث لغير دائم حدث حتى في الوضوء المجدد أو الطهارة عنه أو الطهارة لنحو الصلاة مما لا يباح إلا بالوضوء أو استباحة مفتقر إلى وضوء كالصلاة ومس المصحف.
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>حاشية إعانة الطالبين (1/ 48):</strong> <br>
+(قوله: حتى في الوضوء المجدد) يعني أنه يأتي بالامور المتقدمة - أعني نية الوضوء أو أداء فرض الوضوء أو نية رفع الحدث حتى في الوضوء المجدد، قياسا على الصلاة المعادة. وخالف في بعض ذلك الرملي، وعبارته: ومحل الاكتفاء بالامور المتقدمة في غير الوضوء المجدد. أما هو فالقياس عدم الاكتفاء فيه بنية الرفع أو الاستباحة، وإن ذهب الاسنوي إلى الاكتفاء بذلك، كالصلاة المعادة.
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>حاشية الجمل على المنهج لشيخ الإسلام زكريا الأنصاري (1/ 305):</strong> <br>
+واعتمد أن الوضوء المجدد لا يكتفى فيه بنية الرفع أو الاستباحة خلافا لحج حيث اكتفى بذلك تبعا لابن العماد وقد تقدم أيضا عن الإسنوي قال ومثل ما ذكر وضوء الجنب إذا تجردت جنابته لما يستحب له الوضوء من نوم أو أكل أو نحو ذلك كما أفتى به الوالد أي فلا تكفيه نية رفع الحدث أو الاستباحة وظاهره أنه يكفيه فرض الوضوء ويوجه بأنه فرض في الجملة ا ه ح ل قوله فلا تكفيه نية الرفع يتأمل وجهه مع أن المراد رفع حكمه وهو يرتفع بالنسبة له وإن كان رفعا خاصا وأجيب بأن المتبادر من رفع حكم الحدث الرفع المطلق تأمل شيخنا وعبارة الزيادي قوله فلا يكفيه نية الرفع أي إن أراد بالرفع الأمر الاعتباري أو المنع العام أو أطلق الرفع أما لو أراد رفع المنع بالنسبة لفرض ونوافل فيصح كما سيأتي في التيمم انتهت أي لأنه لا يستبيح بوضوئه إلا فرضا ونوافل ا ه
+</p>                 `
+            },
+            {
+                id: 2,
+                judul: "GAGAL IHTILAM | Sail: 6 Ibtida’iyah",
+                tanggal: "25 Oktober 2025",
+                tahun: "2025",
+                tema: "Ubudiyah",
+                estTime: "8 min",
+                isi: `
+                    <p><strong>Deskripsi Masalah</strong> <br> Sebut saja doni, dia masih berusia 8 tahun(belum baligh), dia adalah anak yang rajin dalam beribadah mulai dari puasa, sholat dan lainnya. Suatu hari, ketika ia sedang melakukan sholat fardu di pertengahan sholat ia merasakan bahwa akan mengalami ihtilam(akan keluar sperma di waktu itu). Sehingga ia berusaha mencegah keluarnya sperma tersebut dengan tangannya, akhirnya spermapun gagal keluar dan ia melepas tangannya.</p>
+                    <p><strong>Pertanyaan:</strong> <br>a. Apakah si doni menjadi baligh di sebabkan kejadian seperti di atas?</p>
+                    <p><strong>Jawaban:</strong> <br> Tidak di hukumi baligh, karna belum umur sembilan tahun.  Dan seandainya ia sudah berumur sembilan tahun, maka hukumnya khilaf, ada yang mengatakan baligh namun tak wajib mandi dan ada yang mengatakan tidak baligh.</p>
+                    <p><strong>Referensi:</strong> <br>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>أسنى المطالب في شرح روض الطالب (2/ 206):</strong> <br>
+    الاحتلام وهو لغة ما يراه النائم تقول منه حلم بالفتح واحتلم وتقول حلمت بكذا وحلمته أيضا قاله الجوهري والمراد به هنا خروج المني في نوم أو يقظة بجماع أو غيره وأقله أي وقت إمكانه تسع سنين قمرية أي استكمالها بالاستقراء والظاهر أنها تقريب كما في الحيض
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>حاشية الجمل على المنهج لشيخ الإسلام زكريا الأنصاري (6/ 467)</strong> <br>
+قوله كمال تسع سنين وقيل في الصبي نصف العاشرة وقيل تمامها وقيل في الصبية نصف التاسعة وقيل أولها ا ه</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>شرح البهجة الوردية (3/ 43):</strong> <br>
+( قوله بأن بلغ ) أي بالستر قال الناشري ولا يتصور ذلك في أثناء الفعل بالاحتلام إلا في صورة واحدة ، وهي ما إذا نزل المني من صلبه إلى ذكره فأمسك ذكره في الصلاة أي بحائل حتى رجع المني فإنه يحكم ببلوغه وإن لم يبرز منه إلى خارج وإن لم يجب عليه الغسل لأن ؛ وجوبه منوط ببروز المني إلى خارج كما يحكم ببلوغ الحبلى وإن لم يبرز منيها
+ </p>
+ <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>حاشية إعانة الطالبين (3/ 83):</strong> <br>
+والحلم: الاحتلام وهو لغة: ما يراه النائم، أي من إنزال المني وقيل مطلقا. والمراد به هنا: خروج المني في نوم، أو يقظة: بجماع، أو غيره. قال في التحفة: وخرج بخروجه: ما لو أحس بانتقاله من صلبه، فأمسك ذكره، فرجع، فلا يحكم ببلوغه - كما لا غسل عليه – اه
+ </p>
+ <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>تحفة المحتاج في شرح المنهاج (3/ 149):</strong> <br>
+( قوله إلى ظاهر الحشفة ) قال في العباب أي والنهاية والمغني ومن أحس بنزول منيه فأمسك ذكره فلم يخرج فلا غسل عليه قال في شرحه حتى لو كان في صلاة كملها وإن حكمنا ببلوغه بذلك أو قطع وهو فيه ولم يخرج من المنفصل كما قاله البارزي والإسنوي انتهى . ولا يخفى إشكال ما قالاه والوجه خلافه ؛ لأن المني انفصل عن البدن ومجرد استتاره بما انفصل معه لا أثر له سم على حج ا هـ ع ش وكردي وقليوبي عبارة شيخنا إلى خارج الحشفة في الرجل فإن لم يخرج من القصبة فلا غسل لكن يحكم بالبلوغ بنزوله إليها وإن لم يخرج منها حتى لو كان في صلاة أتمها وأجزأته عن فرضه ا هـ .
+  </p>
+
+  <p>
+    b. Jika ia, apakah sholat yang ia kerjakan sudah menggugurkan fardhu atau harus mengulang dari awal, mengingat ia mengerjakan sholat itu sebelum baligh?
+</p>
+
+<p>
+    <strong>Jawaban:</strong><br>
+    Sudah dianggap menggugurkan fardhu tanpa harus mengulang dari awal.
+</p>
+
+<p>
+    <strong>Referensi:</strong><br>
+    <strong>Idem sub A</strong>
+</p>
+
+<!-- Jangan menghapus spasi dibawah ini -->
+                  `
+            },
+            {
+                id: 3,
+                judul: "MAULID JADI POLEMIK | Sail: Ittahid (Mutakhorijin)",
+                tanggal: "15 April 2021",
+                tahun: "2021",
+                tema: "Adab",
+                estTime: "25 min",
+                isi: `
+                    <p><strong>Deskripsi Masalah</strong></p>
+                    <p>Bulan Rabiul Awal hampir tiba, bulan yang juga disebut dengan Maulid, dimana Kanjeng Nabi Muhammad dilahirkan pada Bulan tersebut, semua Umat Islam Khusunya di Kecamatan Kokop mengadakan acara Maulidan, dalam rangka menyambut hari lahir baginda Nabi, pembacaan Sholat bergema dimana-mana, serta tentunya ada hidangan didalamnya.</p>
+                    <p>Anggap saja Mas Thufaili, ia sangat semangat menghadiri acara Maulidan, karena baginya bangga dengan menyambut hari lahir baginda nabi merupakan keharusan, baik diundang oleh Shahibul Hajah atau tidak sekalipun, sampai Masyarakat memberikan jargon kepadanya "Dimana ada acara Maulidan, disitulah keberadaan Mas Thufaili dipastikan" agak aneh sih, bahkan bisa dikatakan tidak punya malu, tapi begitulah faktanya.</p>
+                    <p>Lebih parahnya adalah, ketika jamuan sudah diberikan kepada hadirin, sedangkan hidangan bagian Mas Thufaili tidak sama dengan yang lain ternyata ia tukar dengan hidangan yang lengkap dan yang lebih enak, dan kasus ini sepertinya tidak hanya dilakukan Mas Thufaili, namun sudah sering terjadi dikalangan Masyarakat.</p>
+                    <p><strong>Pertimbangan:</strong></p>
+                    <p>Shahibul Hajah pastinya berbeda, ada yang diam tanpa kata melihat kedatangan Mas Thufaili, namun ada juga yang justru menolak dan mengusir Mas Thufaili.</p>
+                    <p><strong>Pertanyaan:</strong></p>
+                    <p>
+                        a. Bagaimana perspektif fiqih terkait menghadiri acara Maulidan tanpa diundang, sebagaimana maklum pada deskripsi?
+                    </p>
+                    <p><strong>Jawaban:</strong></p>
+                    <p>
+                        Tidak diperbolehkan, baik sekedar menghadiri tanpa memakan hidangannya, maupun ikut memakan makanan yang disediakan saat acara.
+                    </p>
+                    <p><strong>Referensi:</strong></p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>تفسير آيات الأحكام (ص: 471)</strong> <br>
+الحكم الأول : هل يجوز تناول الطعام بدون دعوة؟ الجواب : اتفق الفقهاء على أنه لا يجوز دخول البيوت إلا بإذن. ولا يجوز تناول طعام الإنسان إلا بإذن صريح أو ضمني، لقوله عليه السلام: « لا يحل مال امرئ مسلم إلا عن طيب نفسه ». وقد دلت الآية الكريمة على حرمة دخول بيوت النبي صلى الله عليه وسلم إلا بعد الإذن، وعلى حرمة ( التطفل ) وهو أن يحضر إلى الوليمة بدون دعوة، وفاعله يسمى بـ ( الطفيل)، والحكم عام في جميع البيوت، فلا يجوز لإنسان أن يدخل بيت أحد بدون إذنه، ولا أن يتناول الطعام بدون رضى صاحبه، وهذا أدب رفيع من الآداب الاجتماعية التي أرشد إليها الإسلام. قال ابن عباس: كان ناس يتحينون طعامه عليه السلام، فيدخلون عليه قبل الطعام، ويستر ينتظرون إلى أن يدرك، ثم يأكلون ولا يخرجون، فكان رسول الله صلى الله عليه وسلم يتأذى بهم فنزلت هذه الآية. وقال ابن كثير رحمه الله: « حظر الله تعالى على المؤمنين أن يدخلوا منازل رسول الله صلى الله عليه وسلم بغير إذن، كما كانوا قبل ذلك يصنعون في بيوتهم في الجاهلية وابتداء الإسلام، حتى غار الله لهذه الأمة فأمرهم بذلك، وذلك من إكرامه تعالى لهذه الأمة، ومعنى الآية: أي لا ترقبوا الطعام إذا طبخ، حتى إذا قارَب الاستواء تعرضتم للدخول، فإن هذا مما يكرهه الله ويذمه. ثم قال : وهذا دليل على تحrim التطفل، وهو الذي تسميه العرب " الضيفن"
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>حاشيتا قليوبي وعميرة الجزء 3 صح: 299</strong> <br>
+وضده الطفيلي مأخوذ من التطفل وهو حضور طعام الغير بغير دعوة وبغير علم رضاه فهو حرام فلو دعا عالما أو صوفيا فحضر بجماعته حرم حضور من لم يعلم رضا المالك به منهم قوله مما قدم له فلا يأكل الجميع إلا إن جرت به عادة أو علم رضا المالك به اهـ
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>فتح الوهاب (2/ 105)</strong> <br>
+وأما التطفل وهو حضور لدعوة بغير إذن فحرام إلا أن يعلم رضا رب الطعام لصداقة أو مودَّة وصرح جماعة منهم الماوردي بتحريم الزيادة على قدر الشبع ولا تضمن قال ابن عبد السلام وإنما حرمت لأنها مؤذية للمزاج
+ </p>
+ <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>الزواجر عن اقتراف الكبائر (2/ 302)</strong> <br>
+( الْكَبِيرَةُ التَّاسِعَةُ وَالسِّتُونَ وَالسَّبْعُونَ وَالْحَادِيَةُ وَالثَّانِيَةُ وَالسَّبْعُونَ بَعْدَ الْمِائَتَيْنِ : التَّطَفُّلُ وَهُوَ الدُّخُولُ عَلَى طَعَامِ الْغَيْرِ؛ لِيَأْكُلَ مِنْهُ مِنْ غَيْرِ إِذْنِهِ وَلَا رِضَاهُ وَأَكْلُ الضَّيْفِ زَائِدًا عَلَى الشَّبْعِ مِنْ غَيْرِ أَنْ يَعْلَمَ رِضَا الْمُضِيفِ وَإِكْثَارُ الْإِنْسَانِ الْأَكْلَ مِنْ مَالِ نَفْسِهِ بِحَيْثُ يَعْلَمُ أَنَّهُ يَضُرُّهُ ضَرَرًا بَيِّنًا وَالتَّوَسُّعُ فِي الْمَأْكِلِ وَالْمَشَارِبِ شَرَها وَبَطَرًا ). أَخْرَجَ ابْنُ حِبَّانَ فِي صَحِيحِهِ عَنْ أَبِي حُمَيْدٍ السَّاعِدِيِّ رَضِيَ اللَّهُ عَنْهُ قَالَ : قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ { لَا يَحِلُّ لِمُسْلِمٍ أَنْ يَأْخُذَ عَصَا أَخِيهِ بِغَيْرِ طِيبِ نَفْسٍ مِنْهُ } . قَالَ ذَلِكَ لِشِدَّةِ مَا حَرَّمَ اللَّهُ مِنْ مَالِ الْمُسْلِمِ عَلَى الْمُسْلِمِ . وَالشَّيْخَانِ أَنَّهُ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ فِي خُطْبَتِهِ فِي حَجَّةِ الْوَدَاعِ : { إِنَّ دِمَاءَكُمْ وَأَمْوَالَكُمْ وَأَعْرَاضَكُمْ حَرَامٌ عَلَيْكُمْ كَحُرْمَةِ يَوْمِكُمْ هَذَا، فِي شَهْرِكُمْ هَذَا، فِي بَلَدِكُمْ هَذَا، أَلَا هَلْ بَلَّغْتُ }. وَأَبُو دَاوُدَ : { مَنْ دُعِيَ فَلَمْ يُجِبْ فَقَدْ عَصَى اللَّهَ وَرَسُولَهُ، وَمَنْ دَخَلَ عَلَى غَيْرِ دَعْوَةٍ دَخَلَ سَارِقًا وَخَرَجَ مُغِيرًا }.
+  </p>
+ <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>الموسوعة الفقهية الكويتية (20/ 335)</strong> <br>
+التَّطَفُّل عَلَى الدَّعَوَاتِ : لَا يَجُوزُ أَنْ يَدْخُلَ إِلَى الْوَلَائِمِ وَغَيْرِهَا مِنَ الدَّعَوَاتِ مَنْ لَمْ يُدْعَ إِلَيْهَا، فَإِنَّ فِي هَذَا دَنَاءَةً وَمَذَلَّةً، وَلَا يَلِيقُ ذَلِكَ بِالْمُؤْمِنِ، وَفِي الْحَدِيثِ مِنْ رِوَايَةِ ابْنِ عُمَرَ مَرْفُوعًا مَنْ دَخَل عَلَى غَيْرِ دَعْوَةٍ دَخَل سَارِقًا وَخَرَجَ مُغِيرًا الْحَدِيثَ. وَمَنْ يَفْعَل ذَلِكَ يُسَمَّى الطَّفِيلَ. وَعَلَى هَذَا فَالتَّطَفُّل حَرَامٌ عِنْدَ جُمْهُورِ الْفُقَهَاءِ، مَا لَمْ يَكُنْ غَيْرَ الْمَدْعُوِّ تَابِعًا لِمَدْعُوِّ ذِي قَدْرٍ يَعْلَمُ أَنَّهُ لَا يَحْضُرُ وَحْدَهُ عَادَةً، فَلَا يَحْرُمُ، لِأَنَّهُ مَدْعُوٌّ حُكْمًا بِدَعْوَةِ مَتْبُوعِهِ، وَكَرِهَ أَحْمَدُ أَنْ يَتَعَمَّدَ الرَّجُلُ الْقَوْمَ حِينَ وَضْعِ الطَّعَامِ فَيُفْجَأهُمْ، وَإِنْ فَجَأَهُمْ بِلَا تَعَمُّدٍ أَكْلَ نَصًّا، وَأَطْلَقَ فِي الْمُسْتَوْعِبِ وَغَيْرِهِ الْكَرَاهَةَ إِلَّا مِنْ عَادَتْهُ السَّمَاحَةُ. وَلَوْ أَنَّ أَحَدًا أَوْ جَمَاعَةً دَعَوْا فَتَبِعَهُمْ مَنْ لَمْ يَكُنْ مَدْعُوًّا لَمْ يَكُنْ لَهُمْ أَنْ يَنْهَوْهُ وَلَا أَنْ يَأْذَنُوا لَهُ، وَيَلْزَمُهُمْ إِعْلَامُ صَاحِبِ الطَّعَامِ، لِمَا رَوَى أَبُو مَسْعُودٍ الْأَنْصَارِيُّ: أَنَّ رَجُلًا مِنَ الْأَنْصَارِ دَعَا النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ خَامِسَ خَمْسَةٍ، فَلَمَّا جَاءُوا أَتْبَعَهُمْ رَجُلٌ لَمْ يُدْعَ، فَلَمَّا بَلَغَ الْبَابَ قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: إِنَّ هَذَا اتَّبَعَنَا، فَإِنْ شِئْتَ أَنْ تَأْذَنَ لَهُ، وَإِنْ شِئْتَ رَجَعَ . قَالَ. بَلْ آذَنُ لَهُ يَا رَسُولَ اللَّهِ
+  </p>
+
+  <p>
+b. Bolehkah Shahibul Hajah menolak datangnya tamu yang tidak diundang, sebagaimana kasus Mas Thufaili?
+</p>
+
+<p>
+    <strong>Jawaban:</strong><br>
+Diperbolehkan bagi shohibul hajah untuk mengeluarkan tamu yang tidak diundang, hanya saja langkah yang lebih baik bagi shohibul hajah disunnahkan memberi idzin kepada tamu yang tidak diundang untuk tetap mengikuti acara, jika dengan kehadirannya tidak menimbulkan mafsadah, seperti membuat keresahan bagi undangan yang lain.
+</p>
+
+<p>
+    <strong>Referensi:</strong><br>
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>فتح الباري - ابن حجر (9/ 560))</strong> <br>
+وفيه أن من صنع طعاما لغيره فهو بالخيار بين أن يرسله إليه أو يدعوه إلى منزله وأن من دعا أحدا ان يستحب أن يدعو معه من يرى من خصائه وأهل مجالسته وفيه الحكم بالدليل لقوله إني عرفت في وجه الجوع وأن الصحابة كانوا يديمون النظر إلى وجهه تبركا به وكان منهم من لا يطيل النظر في وجهه حياء منه كما صرح به عمرو بن العاص فيما أخرجه مسلم وفيه أنه كان صلى الله عليه وسلم يجوع أحيانا وفيه إجابة الإمام والشريف والكبير دعوة من دونهم واكلهم طعام ذي الحرفة غير الرفيعة كالجزار وأن تعاطي مثل تلك الحرفة لا يضع قدر من يتوق فيها ما يكره ولا تسقط بمجرد تعاطيها شهادته وأن من صنع طعاما لجماعة فليكن على قدرهم أن لم يقدر على أكثر ولا ينقص من قدرهم مستندا إلى أن طعام الواحد يكفي الإثنين وفيه أن من دعا قوما متصفين بصفة ثم طرأ عليهم من لم يكن معهم حينئذ أنه لا يدخل في عموم الدعوة وأن قال قوم أنه يدخل في الهدية كما تقدم أن جلساء المره شركاؤه فيما يهدي إليه وأن من تطفل في الدعوة كان لصاحب الدعوة الاختيار في حرمانه فإن دخل بغير إذنه كان له إخراجها وأن من قصد التطفل لم يمنع ابتداء لأن الرجل تبع النبي صلى الله عليه وسلم فلم يرده لاحتمال أن تطيب نفس صاحب الدعوة بالأذن له وينبغي أن يكون هذا الحديث أصلا في جواز التطفل لكن يقيد بمن أحتاج إليه
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>شرح النووي على مسلم (13/ 208)</strong> <br>
+( باب ما يفعل الضيف اذا تبعه غير من دعاه صاحب الطعام واستحاب اذن صاحب الطعام للتابع ) فيه ( أن رجلا منالأنصار يققال له ابو شعيب صنع للنبي صلى الله عليه وسلم طعاما ثم دعاه خامس خمسة واتبعهم رجل فلما بلغ الباب قال النبي صلى الله عليه وسلم إن هذا اتبعنا فإن شئت أن تأذن له وان شئت رجع قال لا بل آذن له يا رسول الله ) وفيه ( أن جارا لرسول الله صلى الله عليه وسلم فارسي كان طيب المرق فصنع لرسول الله صلى الله عليه وسلم طعاما ثم جاء يدعوه فقال وهذه لعائشة فقال لا فقال رسول الله صلى الله عليه وسلم لافعاد يدعوه فقال رسول الله صلى الله عليه وسلم لعائشة وسلام وهذه قال لعاثل فقال لا فقال رسول الله صلى الله عليه وسلم ثم عاد يدعوه فقال رسول الله صلى الله عليه وسلم قال نعم وهذه قال نعم في الثالثة فقاما يدافعان حتى أتيا منزله ) أما الحديث الأول ففيه أن المدعو اذا تبع رجل بغير استدعاء ينبغي له أن لا يأذن له وينهاه واذا بلغ باب دار صاحب الطعام أعلمه به ليأذن له أو يمنعه وأن صاحب الطعام يستحب له أن يأذن له إن لم يترتب على حضوره مفسدة بأن يؤذى الحاضرين أو يشيع عنهم ما يكرهونه أو يكون جلوسه معهم مزريا بهم لشهرته بالفسق ونحو ذلك فان خيف من حضوره شيء من هذا لم يأذن له وينبغي أن يتلطف في رده ولو أعطاه شيئا من الطعام ان كان يليق به ليكون ردا جميلا كان حسنا  
+ </p>
+
+   <p>
+c. Bagaimana hukum memilih hidangan yang lebih enak saat acara maulidan sebagaimana lumrah terjadi.?
+</p>
+
+<p>
+    <strong>Jawaban:</strong><br>
+Tidak diperbolehkan, karena izin dari Shohibul hajah hanya terhadap makanan yang dihidangkan, kecuali manakala mas thufaili tau bahwa shohibul hajah ridho terhadap makanan tersebut.
+</p>
+
+<p><strong>Catatan:</strong></p>
+<p>
+Jika mengambilnya dalam rangka tau bahwa Shahibul Hajah ridho (Alima Ridohu) dengan makan tersebut, maka bagi Dhoif harus menjaga bagian-bagian temannya.
+</p>
+
+<p>
+    <strong>Referensi:</strong><br>
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>الزواجر عن اقتراف الكبائر (2/ 305)</strong> <br>
+ثُمَّ رَأَيْتُ فِي كَلَامِ الْأَذْرَعِيِّ وَالزَّرْكَشِيِّ مَا يُؤَيِّدُ مَا ذَكَرْتُهُ فِي التَّطَفُّلِ؛ وَذَلِكَ أَنَّهُ لَمَّا حَكَى قَوْلَ الشَّافِعِيِّ رَضِيَ اللَّهُ عَنْهُ فِي الْأُمِّ: مَنْ يَغْشَى الدَّعْوَةَ بِغَيْرِ دُعَاءٍ مِنْ غَيْرِ ضَرُورَةٍ وَلَا يَسْتَجِلُّ صَاحِبَ الطَّعَامِ فَتَتَابَعُ ذَلِكَ مِنْهُ رَدَّتْ شَهَادَتَهُ؛ لِأَنَّهُ لَا يَأْكُلُ مُحَرَّمًا إِذَا كَانَتِ الدَّعْوَةُ دَعْوَةَ رَجُلٍ بِعَيْنِهِ، فَأَمَّا إِذَا كَانَ طَعَامُ سُلْطَانٍ أَوْ رَجُلٍ يَتَشَبَّهُ بِسُلْطَانٍ فَيَدْعُو النَّاسَ فَهَذَا طَعَامٌ عَامَّةٌ وَلَا بَأْسَ بِهِ انْتَهَى بِلَفْظِهِ. قَالَ : وَفِي الرَّوْضَةِ عَنْ الشَّامِلِ إِنَّمَا اشْتُرِطَ تَكْرَارُ ذَلِكَ مِنْهُ؛ لِأَنَّهُ قَدْ يَكُونُ لَهُ شُبْهَةٌ حَتَّى يَمْنَعَهُ صَاحِبُ الطَّعَامِ، فَإِذَا تَكَرَّرَ صَارَ دَنَاءَةً وَقِلَّةَ مُرُوءَةٍ انْتَهَى. ثُمَّ قَالَ مَا نَقَلَهُ عَنْ ابْنِ الصَّبَّاغِ مِنْ أَنَّ الشَّافِعِيَّ إِنَّمَا اشْتُرِطَ التَّكْرَارَ فِي حُضُورِ الدَّعْوَةِ؛ لِأَنَّهُ يَصِيرُ دَنَاءَةً وَقِلَّةَ مُرُوءَةٍ بِخِلَافِ مَا يْتَقَضِّيهِ كَلَامُ الشَّافِعِيِّ فَإِنَّهُ عَلَّلَ الرَّدَّ بِأَنَّهُ يَأْكُلُ مُحَرَّمًا. وَهَذَا يَقْتَضِي أَنَّ الْعِلَّةَ فِي الرَّدِّ مِنْ جِهَةِ إِصْرَارِهِ عَلَى الصَّغِيرَةِ فَإِنَّهَا تَصِيرُ فِي حُكْمِ الْكَبِيرَةِ لَا مِنْ جِهَةِ تَرْكِ الْمُرُوءَةِ فَإِنَّهَا لَا تَقْتَضِي التَّحْرِيمَ، وَلَا شَكَّ أَنَّهُ مُشْتَمِلٌ عَلَى الْأَمْرَيْنِ، وَهَذَا فِي الْأَكْلِ الْمُجَرَّدِ، أَمَّا لَوْ انْضَمَّ إِلَى ذَلِكَ انْتِهَابُ الطَّعَامِ التَّقْبِيسُ وَالْحُلُوُّ أَوْ حَمْلِهِ كَمَا يَفْعَلُهُ السَّفَلَةُ وَيَشُقُّ ذَلِكَ عَلَى الْحَاضِرِينَ وَيَبْغَضُونَ عَنْهُ حَيَاءً فَهُوَ خُرْقٌ لِلْمُرُوءَةِ وَإِلْقَاءُ جِلْبَابِ الْحَيَاءِ، فَيَكْفِي فِي رَدِّ الشَّهَادَةِ بِهِ الْمَرَّةُ الْوَاحِدَةُ وَلَا يُعْتَبَرُ التَّكْرَارُ انْتَهَى. وَالظَّاهِرُ أَنَّهُ أَخَذَ ذَلِكَ مِنْ قَوْلِ شَيْخِهِ الْأَذْرَعِيِّ فِي قُوَّتِهِ بَعْدَ إِرَادَهِ كَلَامِ ابْنِ الصَّبَّاغِ وَأَشَارَ غَيْرُهُ إِلَى أَنَّهُ صَغِيرَةٌ فَإِذَا تَكَرَّرَ صَارَ فِي حُكْمِ الْكَبِيرَةِ. وَقَدْ تَقَدَّمَ اعْتِبَارُ رُبُعِ دِينَارٍ فِي جَعْلِ الْغَصْبِ كَبِيرَةً، وَإِلَّا كُلَّ مَرَّةٍ أَوْ مَرَّتَيْنِ لَا يَبْلُغُهُ غَالِبًا لَكِنَّهُ تَرْكُ مُرُوءَةٍ. نَعَمْ مَا يَفْعَلُهُ بَعْضُ السَّفَلَةِ مِنْ الْمُتَطَفِّلِينَ إِذَا حَضَرَ الدَّعْوَةَ الْخَاصَّةَ يَنْتَهِبُ مِنْهَا شَيْئًا كَثِيرًا مِنْ الْأَطْعِمَةِ النَّفِيسَةِ وَالْحُلْوَى وَيَحْمِلُهُ وَيَحْمِلُهُ وَيَشُقُّ ذَلِكَ مَشَقَّةً شَدِيدَةً عَلَى صَاحِبِ الدَّعْوَةِ، وَإِنَّمَا يَسْكُتُ حَيَاءً مِنْ النَّاسِ وَمُرُوءَةً وَنَرْعُ جِلْبَابِ الْحَيَاءِ، فَيَكْفِي فِي رَدِّ الشَّهَادَةِ الْمَرَّةُ الْوَاحِدَةُ.
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>فتح الوهاب (2/ 105))</strong> <br>
+( وضيف أكل مما قدم له بلا لفظ من مضيفه اكتفاء بالقرينة العرفية كما في الشرب من السقايات في الطرق ( إلا أن ينتظر ) الداعي ( غيره ) فلا يأكل حق يحضر أو يأذن المضيف لفظا. وهذا من زيادتي وخرج بالأكل مما قدم له غيره فلا يأكل من غير ما قدم له ولا يتصرف في ما قدم له بغير أكل لأنه المأذون فيه عرفا فلا يطعم منه سائلا ولا هرة. وله أن يلقم منه غيره من الأضياف إلا أن يفضل المضيف طعامه فليس لمن خص بنوع أن يطعم غيره منه ( وله أخذ ما يعلم رضاه به ) لا إن شك قال الغزالي وإذا علم رضاه ينبغي له مراعاة النصفة مع الرفقة فلا يأخذ إلا ما يخصه أو يرضون به عن طوع لا عن حياء.
+  </p>
+  <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>قواعد الأحكام في مصالح الأنام الجزء الثاني ص: 127</strong> <br>
+فصل: في تنزيِل دلالة العادات وقرائن الأحوال منزلة صريح الأقوال في تخصيص العموم وتقييد المطلق وغيرهما وله أمثلة ـ الى ان قال ـ المثال التاسع: تقديم الطعام الى الضيفان إذا أكمل وضعه بين أيديهم ودخل الوقت الذي جرت العادة بأكلهم فيه فإنه يباح الإقدام عليه تنزيلا للدلالة العرفية منزلة اللفظية، ولا يجوز لأحد منهم أن يطعم السنور ولا السائل ما لم يعلم من باذل الطعام الرضا بذلك، ولا يجوز للأراذل أن يأكلوا مما بين أيدي الأماثل من الأطعمة النفيسة بالأماثل، إذ لا دلالة على ذلك بلفظ ولا عرف زاجر عن ذلك.
+  </p>
+
+<!-- Jangan menghapus spasi dibawah ini -->
+                  `
+            },
+            {
+                id: 4,
+                judul: "NAJIS DI LANTAI | Sail: Syawir Fathul Qarib",
+                tanggal: "15 April 2021",
+                tahun: "2021",
+                tema: "Ubudiyah",
+                estTime: "15 min",
+                isi: `
+                    <p><strong>Deskripsi Masalah</strong></p>
+                    <p>Bersuci baik dari hadats maupun najis merupakan kewajiban setiap mukallaf saat hendak melaksanakan sholat, begitu juga jika khawatir menyebar seperti keterangan dalam kitab Nihayah Al-Zain</p>
+                    <p><p dir="rtl"> وجب إزالته فوراً فإن لم يعص بها فهي على التراخي إلا عند إرادة القيام إلى الصلاة أو نحوها مما تشترط له إزالة النجاسة أو عند خوف الانتشار</p>
+                    <p>Biasanya diberbagai tempat tak lepas dari najis yang tercecer dilantai. Fenomena ini menjadi riskan jika tempat yang terkena najis merupakan tempat lalu lalangnya orang. Dan besar kemungkinan najis tersebut terkena orang yang memakainya.</p>
+                    <p><strong>Pertanyaan:</strong></p>
+                    <p>
+                        a. Wajibkah kita mensucikan tempat yang terkena najis dengan pertimbangan seperti dalam deskripsi?
+                    </p>
+                    <p><strong>Jawaban:</strong></p>
+                    <p>
+                        Tidak wajib menghilangkan najis kecuali hendak melakukan Sholat. sedangkan keterangan yang ada di dalam kitab Nihayatuz Zain adalah kewajiban menghilangkan najis yang menempel di bagian badan.
+                    </p>
+                    <p><strong>Referensi:</strong></p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>غاية المنى شرح سفينة النجا لمحمد علي بن محمد باعطية الدعوني ص ٢٢٣)</strong> <br>
+وإزالة النجاسة هي المقصد الرابع من مقاصد الطهارة ، وإزالتها بالماء وهي وسيلة من وسائل الطهارة ، وكون إزالتها بالماء من خصائص هذه الأمة ، وأما غيرها فكانت تزيلها بقطع محلها إذا كانت في غير حيوان. وازالة النجاسة واجبة إما على الفور او على التراخي ، فان كانت في البدن وقد تضمخ بالنجاسة من غير حاجة وجب إزالتها على الفور ، لأن التضمخ بالنجاسة من غير حاجة معصية يجب الخروج منها على الفور ، وأما إذا أصابته النجاسة من غير تضمخ في بدنه او تضمخ بها لحاجة كأن بال ولم يجد ما يقطع به النجو فجففه بيده فلا يجب الغسل على الفور بل عند إرادة نحو الصلاة ويضيق الوقت ، ومثل البدن في فورية الوجوب المكان إذا كان مما يجب صونه عن النجاسة كالمسجد ومصحف أصابته نجاسة فيجب غسله على الفور وإن تهري ورقه ، وأما غير ذلك فلا يجب غسله على الفور إلا إذا أراد الصلاة فيه - أي في تلك البقعة المتنجسة من ذلك المكان - ومثله الثوب إذا أراد الصلاة فيه وليس عنده ما يصلي فيه إلا هو فيجب غسله لكن على التراخي ويضيق الوقت
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>تذكير الناس للحبيب أحمد إبن حسن بن عبد الله العطاس ص 44 - 45</strong> <br>
+وقرأت على سيدي رضي الله عنه فائدة من كلام الحبيب عبد الرحمن بن عبد الله بلققيه وهي قوله في بعض مكاتباته كل ما غلب تنجسه طاهر ما لم يتحقق بالحس فمن حكم بنجاسة ذلك فقد افترى على الله كذبا قال الله تعالى ولا تقف ما ليس لك به علم إن السمع والبصر والفؤاد كل أولئك كان عنه مسئولا ومن الورع ترك الورع في بعض ذلك كتياب الصبيان وضرع الشاة التي تربض في النجاسات والبر الذي يَداس بالبقر فمن تورع في شيء من ذلك فقد خالف السنة الله يا سيدي الحذر الحذر من الوسواس فانه يغير القلب ويضر الدين وقد يؤدي الى الجنون انتهى كلامه فقال سيدي عند قراءة تلك الفائدة أعرف الحبيب أبا بكر بن عبد الله العطاس والحبيب احمد بن محمد المحضار يصلون حيث يجيشون ولا يقولون نجس ولا طاهر ولا مستعمل ولا غيره وكان الحبيب أبو بكر إذا توضأ يصلي حيث جاء إن هو حصير أو مخلاة أو غير ذلك وإذا خرج من بيت الماء بلا نعال بعد الوضوء صلى على الأرض وإذا جاء عند النفساء وعندها بقية من الدهن يدهن به وسأل سائل عما يصيب الانسان من رشاش الطريق ومن الميازب فقال سيدي يعفى عنه وساق في الاستدلال عليه هذا الحديث بلفظه أو معناه</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>نهاية الزين ٤٥/١)</strong> <br>
+والمقصد الرابع من مقاصد الطهارة إزالة النجاسة وإزالتها واجبة إلا في النجاسة المعفو عنها وهي على الفور إن عصى بها كأن تضمخ بها لغير حاجة ومن ذلك التضمخ بدم الأضحية وما يفعله العوام من تزويق الأبواب به حرام وتجب إزالته فورا فإن لم يعص بها فهي على التراخي إلا عند إرادة القيام إلى الصلاة أو نحوها مما تشترط له إزالة النجاسة أو عند خوف الانتشار ويندب أن يعجل بإزالتها فيما عدا ذلك سواء فيما ذكر المغلظة وغيرها على المعتمد وخرج بغير حاجة ما إذا كان التضمخ بها لحاجة كأن بال ولم يجد شيئا ينشف به فله تنشيف ذكره بيده حتى يجد الماء وكذا نزح بيوت الأخلية ونحوها مما يحتاج إليه  
+ </p>
+ <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>حاشية البجيرمي على الخطيب - (ج 2 / ص 103))</strong> <br>
+وَفِي حَاشِيَةِ الرَّحْمَانِيِّ عَلَى التَّحْرِيرِ تَنْبِيهٌ : فَصَلَاتُ الْأَنْبِيَاءِ طَاهِرَةٌ عَلَى الْمُعْتَمَدِ ، وَاسْتِنْجَاؤُهُ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مِنْهَا مُبَالَغَةً فِي الطَّهَارَةِ لِأَجْلِ التَّشْرِيعِ وَالتَّنْزِيهِ عَنْهَا لِقَدَارَتِهَا وَتَعْتَرِيهِ الْأَحْكَامُ الْخَمْسَةُ : الْأَوْلُ : الْوُجُوبُ وَهُوَ مِنْ كُلِّ خَارِجٍ مُلَوِّثٍ . الثَّانِي : الِاسْتِحْبَابُ وَهُوَ مِنْ دُودٍ وَيَعْرُبَ بِلَا لَوْثٍ . الثَّالِثُ : الْكَرَاهَةُ وَهُوَ مِنْ الرِّيحِ . الرَّابِعُ : الْحَرَامُ وَهُوَ بِالْمَطْعُومِ الْمُحْتَرَمِ . الْخَامِسُ : الْإِبَاحَةُ وَهُوَ الْأَصْلُ ، وَتَوَقَّفَ ع ش فِي كَوْنِ الْأَصْلِ فِيهِ الْإِبَاحَةَ ، وَقَالَ : وَانْظُرْ مَا وَجْهُهُ وَمَا صُورَتُهُ ، إِلَّا أَنْ يُرَادَ أَنَّهُ مُبَاحٌ قَبْلَ دُخُولِ الْوَقْتِ وَوُجُوبُهُ لَيْسَ عَلَى الْفَوْرِ ، بَلْ عِنْدَ إِرَادَةِ نَحْوِ الصَّلَاةِ أَوْ خَوْفِ الِانْتِشَارِ أَيْ انْتِشَارِ النَّجَاسَةِ . أَيْ وَإِنْ كَانَ يُجْزِئُ فِيهِ الْجَامِدُ ؛ لِأَنَّ هَذَا وَإِنْ لَمْ يَكُنْ مِنْ التَّضَمُّخِ الَّذِي هُوَ اسْتِعْمَالُ النَّجَاسَةِ فِي بَدَنِهِ فَغَيْرُ عُذْرٍ إِلَّا أَنَّهُ مُلْحَقٌ بِهِ كَمَا فِي ح ل وَقَالَ بَعْضُهُمْ : الْإِسْتِنْجَاءُ وَاجِبٌ فَوْرًا عِنْدَ الْقِيَامِ إِلَى الصَّلَاةِ حَقِيقَةً أَوْ حُكْمًا بِأَنْ دَخَلَ وَقْتُهَا وَلَمْ يُرِدْ فِعْلَهَا فِي أَوَّلِ وَقْتِهَا . وَالْحَاصِلُ : أَنَّهُ بِدُخُولِ الْوَقْتِ وَجَبَ الْإِسْتِنْجَاءُ وُجُوبًا مُوَسَّعًا وَمُضَيَّقًا
+  </p>
+ <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>حاشية البجيرمي على المنهج - (ج 1 / ص 228))</strong> <br>
+( قَوْلُهُ : وَيَجِبُ اسْتِنْجَاءٌ ) لَا عَلَى الْفَوْرِ بَلْ عِنْدَ إِرَادَةِ نَحْوِ الصَّلَاةِ ، أَوْ خَوْفِ الِانْتِشَارِ أَيْ انْتِشَارِ النَّجَاسَةِ أَيْ وَإِنْ كَانَ يُجْزِئُ فِيهِ الْجَامِدُ لِأَنَّ هَذَا ، وَإِنْ لَمْ يَكُنْ مِنْ التَّضَمُّخِ الَّذِي هُوَ اسْتِعْمَالُ النَّجَاسَةِ فِي بَدَنِهِ لِغَيْرِ عُذْرٍ إِلَّا أَنَّهُ مُلْحَقٌ بِهِ ح ل وفي سم على حج وَالْإِسْتِنْجَاءُ وَاجِبٌ عِنْدَ الْقِيَامِ إِلَى الصَّلَاةِ حَقِيقَةً ، أَوْ حُكْمًا بِأَنْ دَخَلَ وَقْتُهَا وَلَمْ يُرِدْ فِعْلَهَا فِي أَوَّلِ الْوَقْتِ . وَالْحَاصِلُ أَنَّهُ بِدُخُولِ الْوَقْتِ يَجِبُ الْإِسْتِنْجَاءُ وُجُوبًا مُوَسَّعًا وَمُضَيَّقًا ، وَمُضَيَّقًا بِضِيقِهِ كَبَقِيَّةِ الشُّرُوطِ وَلَوْ اقْتَضَى الْحَالُ تَأْخِيرَ الْإِسْتِنْجَاءِ فَجَفَّفَ بَوْلَهُ فِي يَدِهِ حَتَّى لَا يُصِيبَهُ جَازِمْ را ه.  
+   </p>
+
+  <p>
+b. Jika wajib, sebatas mana khawatir menyebar yang dapat menjadikan kewajiban menghilangkan najis menjadi segera?
+</p>
+
+<p>
+    <strong>Jawaban:</strong><br>
+Mengekor terhadap jawaban A
+</p>
+
+<p>
+    <strong>Referensi:</strong><br>
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>بغية المسترشدين ص: 14-15</strong> <br>
+(مسئلة ي) خذ قاعدة ينبغي الاعتناء بها لكثرة فروعها ونفعها وهي كل عين لم يتيقن نجاستها لكن غلبت النجاسة في جنسها كتياب الصبيان وجهلة الجزارين والمتدينين من الكفار بالنجاسة كأكلة الخنازير أرجح القولين فيها العمل بالأصل وهو الطهارة نعم يكره استعمال كل ما احتمل النجاسة على قرب وكل عين تيقنا نجاستها ولو بمغلظ ثم احتمل طهارتها ولو على بعد لا تنجs ما لاقته فحينئذ لا يحكم بنجاسة دكاكين والجزارين والحواتين وزوارقهم التي شوهدت الكلاب تلحسها أو لا يحكم بتجاسة اللحم أو الحوث الموضوع عليهاوما لاقاه من أبدان الناس إلا إن شوهد ملاقاتها للنجاسة فتكون البقعة التي لحسها الكلب نجسة وكذا ما لاقاها يقينا بمشاهدة أو إخبار عدل مع الرطوبة قبل احتمال طهرها بمرور سبع جريات بماء بتراب طهور ولا يتعدى حكمها لباقي الدكان فضلا عن غيره وكل لحم وحوت وغيرهما خرج من تلك الأماكن محكوم بطهارته إلا ما تيَقن ملاقاته لنفس المحل المتنجس ولم يشق الاحتراز عنه غالبا يعفى عنه
+</p>
+
+<!-- Jangan menghapus spasi dibawah ini -->
+                  `
+            },
+            {
+                id: 5,
+                judul: "POLEMIK FATHUL QORIB | Sail: Fraksi Fathul Qorib",
+                tanggal: "10 April 2022",
+                tahun: "2022",
+                tema: "Ubudiyah",
+                estTime: "20 min",
+                isi: `
+                    <p><strong>Deskripsi Masalah</strong></p>
+                    <p>Bisa di katakan kalau santri adalah insan yang sangat rajin dan istikomah,karna ia akan menjadi sosok yang di jadikan subtansi oleh masyarakat tatkala  mempunyai masalah yang sangat jlimet dan tak terselesaikan.</p>
+                    <p>	Suatu ketika ada salah satu santri yang sedang asik dengan kitab fathul qoribnya,ia mentarget dirinya untuk bisa memahami semua kitab yang di pelajarinya,iapun larut dalam belajarnya hingga tanpa di sadari ia sambil tersenyum,terheran-heran bahkan sampai mengernyitkan keningnya tatkala ia sampai pada lafad</p>
+                    <p><p dir="rtl">  فلو نسي الترتيب لم يكف، ولو غسل أربعة أعضاءه دفعة واحدة بإذنه ارتفع حدث وجهه فقط </p>
+                    <p>di waktu itu,  nalar sang santri tersebut menjadi rancu dan tidak bisa meneruskan belajarnya,sehingga ia mengangkat permasalahan ini kedalam bahtsul masa’il bulanan di pondok pesantren al hikmah darussalam.</p>
+                    <p><strong>Pertanyaan:</strong></p>
+                    <p>
+                        a. Seperti apakah gambaran فلو نسي الترتيب  seperti dalam ibaroh di atas.?
+                    </p>
+                    <p><strong>Jawaban:</strong></p>
+                    <p>
+                        Apabila seseorang lupa tidak mengerjakan tartib dalam whudu’ maka yang di laksanakan tidak mencukupi dan harus mengulangi rukun wudhu yang setelahnya.
+                    </p>
+                    <p><strong>Referensi:</strong></p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>فتح القريب (ص: 8):</strong> <br>
+(و) السادس (الترتيب) في الوضوء (على ما) أي الوجه الذي (ذكرناه) في عد الفروض، فلو نسي الترتيب لم يكف، ولو غسل أربعة أعضاءه دفعة واحدة بإذنه ارتفع حدث وجهه فقط
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>فقه العبادات - شافعي (ص: 96):</strong> <br>
+ - سادسا - الترتيب : وهو البداء بالوجه مقرونا بالنية ثم اليدين ثم الرأس ثم الرجلين والدليل على فرضية الترتيب حديث جابر رضي الله عنه في صفة حجه صلى الله عليه و سلم وفيه ( . . . . . نبدأ بما بدأ الله به ) ( الترمذي ج 3 كتاب الحج باب 38 / 862 ) كما أن الأحاديث الصحيحة في صفة وضوئه صلى الله عليه و سلم تدل على أنه قد التزم الترتيب الوارد في آية الوضوء . ودليله من العقل أن الله تعالى فرض ممسوحا بين مغسولات ولا يفرق عند العرب بين المتجانسات إلا لعلة والعلة هنا لزوم الترتيب ثم إن الوضوء عبادة مشتملة على أركان مختلفة كالصلاة لذا وجب الترتيب فيه . وبناء عليه لو نسي المتوضئ في أثناء الوضوء غسل عضو من أعضاءه لزمه غسل ما بعده لكي يصل الترتيب وكذلك بفعل الشاك يبني على اليقين فيغسل ما شك فيه وما بعده ( أما لو شك بعد فراغه من الوضوء فلا شيء عليه لأن الشك بعد الفراغ من العبادة لا يؤثر إلا الشك في النية فإنه يؤثر إذ لا تنعقد العبادة وعليه الإعادة ) فإن ترك الترتيب عامدا أو ناسيا لم يصح وضوؤه
+ <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>الوسيط (1/ 273):</strong> <br>
+ الفرض السادس الترتيب خلافا لأبي حنيفة    وفيه فروع أربعة    الأول لو نسي الترتيب لا يجزئه وفيه قول قديم أنه يجزئه وكذلك في ترك الفاتحة ناسيا وهو ضعيف  الثاني إذا انغمس المحدث في ماء ونوى رفع الحدث فيه وجهان أحدهما لا  يجزئ لانعدام الترتيب والثاني يجزئ لعلتين إحداهما أن الغسل حط عنه تخفيفا فإذا اغتسل صار الجميع كالعضو الواحد فأشبه الجنب والثانية أن الماء يلاقي أعضاءه في لحظات متعاقبة فيترتب رفع الحدث وعلى هذا لو تنكس فأوصل الماء إلى أسافله ثم إلى أعاليه خرج على العلتين 
+  </p>
+
+  <p>
+b. Bagaimanakah sebenarnya kacamata fiqh menalar redaksi yang bergaris bawah di atas tersebut.?
+</p>
+
+<p>
+    <strong>Jawaban:</strong><br>
+Seandainya ada empat orang yang membasuh seluruh anggota whudu’ seseorang sekaligus, maka yang hilang hanya hadats wajahnya saja menurut pendapat yang shohih.
+</p>
+
+<p>
+    <strong>Referensi:</strong><br>
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>فتح القريب (ص: 8):</strong> <br>
+(و) السادس (الترتيب) في الوضوء (على ما) أي الوجه الذي (ذكرناه) في عد الفروض، فلو نسي الترتيب لم يكف، ولو غسل أربعة أعضاءه دفعة واحدة بإذنه ارتفع حدث وجهه فقط
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>روضة الطالبين (1/ 55):</strong> <br>
+الفرض السادس الترتيب فلو تركه عمدا لم يصح وضوؤه لكن يعتد بالوجه وما غسله بعده على الترتيب ولو تركه ناسيا فقولان المشهور الجديد لا يجزئه ولو غسل أربعة أنفس أعضاءه دفعة باذنه لم يحصل إلا الوجه على الصحيح وعلى الثاني يحصل الجميع أما إذا غسل المحدث جميع بدنه فان أمكن حصول الترتيب بأن انغمس في الماء ومكث زمانا يتأتى فيه الترتيب أجزأه على الصحيح وإن لم يتأت بأن انغمس ولم يمكث أو غسل أسافله قبل أعاليه لم يجزه على الأصح ولا خلاف في الاعتداد بغسل الوجه في الصورتين إذا قارنته النية هذا كله إذا نوى رفع الحدث فان نوى الجنابة فالأصح أنه كنية رفع الحدث والثاني لا يجزئه بحال إلا الوجه قلت الأصح عند المحققين في مسألة الانغماس بلا مكث الإجزاء والله أعلم
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>المجموع شرح المهذب (1/ 447):</strong> <br>
+(فان غسل أربعة أنفس أعضاءه الاربعة دفعة واحدة لم يجزيه الاغسل الوجه لانه لم يرتب) (الشرح) هذا الذي جزم به هو المذهب الصحيح وبه قطع الجمهور وفيه وجه أنه يصح وضوءه حكاه القاضي حسين والمتولي والشاشى كما لو استأجر المعضوب رجلين ليحجا عنه حجة الاسلام وحجة نذر في سنة واحدة فحجا فيها فانه يحصل له الحجتان علي الصحيح المنوص: وفيه وجه مخرج من الوضوء والفرق على المذهب أن الواجب في الوضوء الترتيب ولم يحصل وفي الحج ألا يقدم على حجة الاسلام غيرها ولم يقدم
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>تحفة المحتاج في شرح المنهاج (2/ 428):</strong> <br>
+( قوله : هو كذلك ) لكن ألحق القمولي بالانغماس ما لو رقد تحت ميزاب أو غيره أو صب غيره الماء عليه دفعة واحدة ويجاب عمن رد عليه بأن المراد بقول القمولي دفعة واحدة أن الماء عم جميع بدنه في تلك الدفعة فحينئذ صار كالانغماس لا كما لو غسل أربعة أعضائه معا لتمايز ما في هذه دون تلك وهذا ظاهر من كلام القمولي فلا اعتراض عليه ا هـ إيعاب ا هـ .كردي عبارة الإطفيحي أفهم قول المنهج ولو انغمس محدث أجزأه أن الانغماس لا بد منه فلا يكفي الاغتسال بدونه لكن ألحق القمولي ما لو رقد تحت ميزاب وانصب عليه الماء بأن عم جميع بدنه دفعة واحدة ، وهو المعتمد وارتضاه في شرح العباب ا هـ .
+  </p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>حاشيتا قليوبي وعميرة (1/ 57):</strong> <br>
+(السَّادِسُ: تَرْتِيبُهُ هَكَذَا) أَيْ كَمَا ذُكِرَ مِنْ الْبُدَاءَةِ بِغَسْلِ الْوَجْهِ ثُمَّ الْيَدَيْنِ ثُمَّ الرَّأْسِ ثُمَّ الرِّجْلَيْنِ لِلِاتِّبَاعِ كَمَا فِي حَدِيثِ مُسْلِمٍ السَّابِقِ وَغَيْرِهِ. (فَلَوْ اغْتَسَلَ مُحْدِثٌ) بِنِيَّةِ الْوُضُوءِ بَدَلَهُ (فَالْأَصَحُّ أَنَّهُ إنْ أَمْكَنَ تَقْدِيرُ تَرْتِيبٍ بِأَنْ غَطَسَ وَمَكَثَ) قَدْرَ التَّرْتِيبِ (صَحَّ) لَهُ الْوُضُوءُ (وَإِلَّا) أَيْ وَإِنْ لَمْ يُمْكِنْ تَقْدِيرُ التَّرْتِيبِ فِيهِ بِأَنْ غَطَسَ وَخَرَجَ فِي الْحَالِ مِنْ غَيْرِ مُكْثٍ (فَلَا) يَصِحُّ لَهُ وُضُوءٌ (قُلْت: الْأَصَحُّ الصِّحَّةُ بِلَا مُكْثٍ، وَاَللَّهُ أَعْلَمُ) لِأَنَّ الْغُسْلَ يَكْفِي لِلْحَدَثِ الْأَكْبَرِ فَلِلْأَصْغَرِ أَوْلَى وَقِيلَ لَا يَصِحُّ فِي الْمُكْثِ أَيْضًا لِأَنَّ التَّرْتِيبَ فِيهِ تَقْدِيرِيٌّ لَا تَحْقِيقِيٌّ.
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>نهاية المحتاج (1/ 175):</strong> <br>
+السادس من الفروض ترتيبه هكذا بأن يغسل وجهه مع النية ثم يديه ثم يمسح رأسه ثم يغسل رجليه لأنه صلى الله عليه وسلم يتوضأ إلا مرتبا ولو لم يجب لتركه في وقت أو دل عليه بيانا للجواز كما في التثليث ونحوه ولما صح من قوله صلى الله عليه وسلم ابدءوا بما بدأ الله به الشامل للوضوء وإن ورد في الحج إذ العبرة بعموم اللفظ وهو عام ولأنه تعالى ذكر ممسوحا بين مغسولات وتفريق المتجانس لا ترتكبه العرب إلا لفائدة وهي هنا وجوب الترتيب لا ندبه بقرينة الأمر في الخبر ولأن العرب إذا ذكرت متعاطفات بدأت بالأقرب فالأقرب فلما ذكر فيها الوجه ثم اليدين ثم الرأس ثم الرجلين دلت على الأمر بالترتيب وإلا لقال فاغسلوا وجوهكم وامسحوا برءوسكم واغسلوا أيديكم وأرجلكم ولأن الأحاديث المستفيضة الشائعة في صفة وضوئه صلى الله عليه وسلم مصرحة به ولأن الآية بيان للوضوء الواجب فلو قدم عضوا على محله لم يعتد به ولو غسل أربعة أعضائه معا ولو بغير اذنه ارتفع حدث وجهه فقط حيث نوى معه لأن المعية تنافي الترتيب
+</p>
+
+<!-- Jangan menghapus spasi dibawah ini -->
+                  `
+            },
+            {
+                id: 6,
+                judul: "SYARAT DALAM SHOLAT | Sail: 1 Tsanawiyah",
+                tanggal: "30 Mei 2024",
+                tahun: "2024",
+                tema: "Ubudiyah",
+                estTime: "13 min",
+                isi: `
+                    <p><strong>Deskripsi Masalah</strong></p>
+                    <p>	Telah kita ketahui bahwa dalam setiap pekerjaan yang bernilai ibadah ada beberapa syarat dan rukun yang harus kita penuhi, yang kemudian hal tersebutlah yang akan membawa kita pada ibadah yang sah atau bahkan di terima di sisi allah. Semisal, syarat dalam sholat berjemaah antara lain adalah melihat pada imam, tak boleh mengedepankan diri melebihi imam dan lain sebagainya. Namun, permasalahan datang ketika seorang petani datang telat saat ingin melaksanakan sholat jumat, akhirnya mau tidak mau ia harus berada di shof paling belakang(di bagian luar masjid). Ketika sholat sedang berlangsung, awal awal semua syarat masih terpenuhi namun,di pertengahan sholat pintu masjid tertutup hingga membuatnya tidak bisa melihat gerak gerik imam atau jama’ah yang lainnya.</p>
+                    <p><strong>Pertanyaan:</strong></p>
+                    <p>
+                        a. Apakah yang harus di lakukan petani tersebut tatkala mengalami kejadian seperti dalam deskripsi.?
+                    </p>
+                    <p><strong>Jawaban:</strong></p>
+                    <p>
+                        Melanjutkan sholatnya karena tetap dianggap sah sebagaimana pendapatnya imam Al¬¬-Baghowi.
+                    </p>
+                    <p><strong>Referensi:</strong></p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>كفاية الأخيار (ص: 133)</strong> <br>
+وإن صلى الإمام في المسجد والمأموم خارج المسجد قريبا منه وهو عالم بصلاته ولا حائل هناك جاز ) الحالة الثانية إذا كان الإمام في المسجد والمأموم خارج المسجد وليس بينهما حائل صح الاقتداء إذا لم تزد المسافة على ثلثمائة ذراع وتعتبر المسافة من آخر المسجد على الأصح لأن المسجد مبني للصلاة فلا يدخل في الحد الفاصل وصورت المسألة في أصل الروضة بأن يقف المأموم في موات متصل بالمسجد وصورها في المنهاج بالموات ولم يشترط الاتصال وعلى عدم الاشتراط جرى ابن الرفعة قال النووي في أصل الروضة ولو وقف المأموم في شارع متصل بالمسجد فهو كالموات على الصحيح ولو كان الفضاء الذي وقف فيه المأموم متصلا بالمسجد وهو مملوك فهل حكمه حكم الموات أم لا نقل في الروضة عن البغوي أنه لا يصح الاقتداء حتى تتصل الصفوف وكذا لو وقف على سطح مملوك متصل بسطح المسجد لا يصح الاقتداء به حتى تتصل الصفوف بأن لا يبقى بين الواقفين موضع يسع واقفا كما لو كان في دار مملوكة متصلة بالمسجد يشترط الاتصال بأن يقف واحد في آخر المسجد متصلا بعتبة الدار وآخر في الدار متصل بالعتبة بحيث لا يكون بينهما موقف رجل قال في أصل الروضة وما ذكره في الدار فهو صحيح وأما ما ذكره في الفضاء فمشكل وينبغي أن يكون كالموات هذا كله إذا لم يكن حائل فإن كان للمسجد جدار نظر إن كان له باب مفتوح ووقف مقابله جاز حتى لو اتصل صف بالمحاذي وخرجوا عن المحاذاة جاز وإن لم يكن في الجدار باب أو كان ولم يقف بحذائه فالصحيح الذي عليه الجمهور أنه لا يصح الاقتداء به وإن كان الحائل غير جدار المسجد لم يصح الاقتداء بلا خلاف ولو كان باب المسجد مغلقا أي مسكرا إما بسكرة ويعبر عنها بالضبة في بعض البلاد أو بغال أو قفل ونحو ذلك فحكمه حكم الجدار فلا يصح الاقتداء على الصحيح وإن كان باب المسجد مردودا فقط أو كان بينهما شباك والمأموم يعلم انتقالات الإمام فوجهان الأصح لا يصح الاقتداء لأن الباب يمنع المشاهدة والشباك يمنع الاستطراق نعم قال البغوي لو كان الباب مفتوحا حالة التحرم بالصلاة فانغلق في أثناء الصلاة لم يضر كذا ذكره في فتاويه والله أعلم  الحالة الثانية إذا كان الإمام في المسجد والمأموم خارج المسجد وليس بينهما حائل صح
+</p>
+<p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>بغية المسترشدين (ص: 146)</strong> <br>
+مسألة) : من شروط القدوة اجتماع الإمام والمأموم في مكان ، ثم إن جمعهما مسجد ، ومنه جداره ورحبته بفتح الحاء وهي ما حجر لأجله ، وإن فصل بينهما طريق ما لم يعلم حدوثها بعده ، ومنارته التي بابها فيه أو في رحبته لا حريمه ، وهو ما هيِّىء لإلقاء نحو قمامته ، فالشرط العلم بانتقالات الإمام ، وإمكان المرور من غير ازورار وانعطاف ، بأن يولي ظهره القبلة على ما فهمه الشيخ عبد الله باسودان من عبارة التحفة ، لكن رجح العلامة علي ابن قاضي عدم ضرر الازورار والانعطاف في المسجد مطلقاً وكما يأتي في ي ، ولا يضر غلق الباب وكذا تسميره كما في التحفة ، خلافاً لـ (م ر
+ <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>المجموع شرح المهذب (4/ 303)</strong> <br>
+أما رحبة المسجد فقال الرافعي عدها الاكثرون منه ولم يفرقوا بين أن يكون بينهما وبين المسجد طريق أم لا وقال ابن كج ان انفصلت فهي كمسجد آخر والمذهب الاول فقد نص الشافعي والاصحاب علي صحة الاعتكاف فيها قال البندنيجى ورحبة المسجد هي البناء المبنى له حوله متصلا به وقال القاضي أبو الطيب هي ما حواليه
+  </p>
+  <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>الأشباه والنظائر - شافعي (ص: 240))</strong> <br>
+ و أما رحبة المسجد فقال في شرح المهذب قال صاحب الشامل و البيان : هي ما كان مضافا إلى المسجد و عبارة المحاملي : هي المتصلة به خارجة قال النووي : و هو الصحيح خلافا لقول ابن الصلاح إنها صحنه و قال البندنيجي : هي البناء المبني بجواره متصلا به و قال القاضي أبو الطيب : هو ما حواليه و قال الرافعي الأكثرون على عد الرحبة منه و لم يفرقوا بين أن يكون بينها و بين المسجد طريق أم لا و هو المذهب و قال ابن كج : إن انفصلت عنه فلا
+   </p>
+  <p dir="rtl" class="font-arabic text-right text-xl mt-6">
+    <strong>المجموع شرح المهذب (4/ 307))</strong> <br>
+والثالث من حريم المسجد الذى بينه وبين الموات وحريمه الموضع المتصل به المهيأ لمصلحته كانصباب الماء إليه وطرح القمامات فيه ولو كان بينهما جدار المسجد لكن الباب النافذ بينهما مفتوح فوقف في مقابلته جاز فلو اتصل صف بالواقف في المقابلة وراءه وخرجوا عن المقابلة صحت صلاتهم لاتصالهم بمن صلاته صحيحة فلو لم يكن في الجدار باب أو كان ولم يكن مفتوحا أو كان مفتوحا ولم يقف في قبالته بل عدل عنه فوجهان (الصحيح) انه لا يصح الاقتداء لعدم الاتصال وبهذا قال جمهور اصحابنا المتقدمين وقطع به أكثر المصنفين (والثاني) قاله أبو اسحق المروزى يصح الاقتداء ولا يكون حائط المسجد حائلا سواء كان قدام المأموم أو عن جنبه والمذهب أنه يمنع وهذا الوجه مشهور عن ابى اسحق في كتب الاصحاب وقال البندنيجى هذا ليس بصحيح عن ابي اسحق قال القاضى أبو الطيب هو ظاهر نص الشافعي في الام وبه قال أبو حنيفة وأما الحائل غير جدار المسجد فيمنع بلا خلاف ولو كان بينهما باب مغلق فهو كالجدار لانه يمنع الاستطراق والمشاهدة فان كان مردودا غير مغلق فهو مانع من المشاهدة دون الاستطراق أو كان بينهما شباك فهو مانع من الاستطراق دون المشاهدة ففى الصورتين وجهان (اصحهما) عد الاكثرين أنه مانع وأصحهما عند القاضي أبي الطيب أنه ليس بمانع هذا كله في الموات
+
+<!-- Jangan menghapus spasi dibawah ini -->
+                  `
             }
         ];
 
@@ -990,26 +1738,28 @@
 
             data.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'glass-card bg-white p-6 rounded-3xl flex flex-col justify-between border border-gray-100 shadow-lg hover:shadow-2xl transition-all group';
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-xl font-bold group-hover:bg-yellow-500 group-hover:text-emerald-950 transition-colors">
-                                <i class="fa-solid fa-folder-open"></i>
-                            </div>
-                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full">${item.tema}</span>
-                        </div>
-                        <span class="text-xs text-gray-400"><i class="fa-regular fa-calendar mr-1"></i> ${item.tanggal}</span>
-                        <h3 class="text-lg font-bold text-emerald-950 mt-2 mb-3 group-hover:text-yellow-600 transition-colors line-clamp-2">${item.judul}</h3>
-                    </div>
-                    <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-3 mt-4">
-                        <div class="flex items-center gap-2">
-                            <button onclick="bacaRumusan(${item.id})" class="btn-emerald px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
-                                <i class="fa-solid fa-book-open"></i> Baca
-                            </button>
-                        </div>
-                    </div>
-                `;
+                card.className = 'glass-card bg-white/95 backdrop-blur-md p-6 rounded-[2rem] flex flex-col justify-between border border-emerald-900/10 shadow-[0_10px_30px_-5px_rgba(4,120,87,0.08)] hover:shadow-[0_20px_40px_-10px_rgba(4,120,87,0.15)] hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden';
+card.innerHTML = `
+    <div class="absolute inset-0 top-0 h-44 bg-[url('kartu.jpg')] bg-cover bg-center opacity-20 pointer-events-none"></div>
+    <div class="absolute inset-x-0 top-28 h-20 bg-gradient-to-b from-transparent to-white/95 pointer-events-none"></div>
+    <div class="relative z-10">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-50 text-emerald-800 flex items-center justify-center text-xl font-bold shadow-sm group-hover:bg-emerald-800 group-hover:text-white transition-all duration-300">
+                <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <span class="text-xs font-bold uppercase tracking-wider px-4 py-1.5 bg-yellow-500 text-white rounded-full shadow-md">${item.tema}</span>
+        </div>
+        <span class="text-xs text-gray-500 font-medium flex items-center mt-6"><i class="fa-regular fa-calendar mr-1.5 text-emerald-600/70"></i>${item.tanggal}</span>
+        <h3 class="text-lg font-bold text-emerald-950 mt-1.5 mb-3 group-hover:text-emerald-800 transition-colors line-clamp-2 leading-snug">${item.judul}</h3>
+    </div>
+    <div class="pt-4 -mx-6 -mb-6 p-6 bg-gradient-to-b from-emerald-700 to-yellow-600 flex items-center justify-between gap-3 mt-4 relative z-10 rounded-b-[2rem] shadow-inner">
+        <div class="flex items-center gap-2">
+            <button onclick="bacaRumusan(${item.id})" class="bg-emerald-950 hover:bg-black text-white px-6 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-emerald-950/30 hover:shadow-xl transition-all active:scale-95">
+                <i class="fa-solid fa-book-open text-emerald-400"></i> Baca
+            </button>
+        </div>
+    </div>
+`;
                 grid.appendChild(card);
             });
         }
@@ -1255,27 +2005,45 @@
             const modal = document.getElementById('agenda-modal');
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
+function shareToWhatsApp() {
+    if (!currentActiveRumusan) {
+        alert("Rumusan belum dipilih.");
+        return;
+    }
 
-        function shareTo(platform) {
-            const url = window.location.href;
-            const title = currentActiveRumusan ? currentActiveRumusan.judul : document.title;
-            let shareUrl = '';
+    const item = currentActiveRumusan;
 
-            if(platform === 'whatsapp') {
-                shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' - ' + url)}`;
-            } else if(platform === 'facebook') {
-                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-            } else if(platform === 'telegram') {
-                shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
-            }
+    // Mengubah HTML isi rumusan menjadi teks yang rapi
+    const temp = document.createElement("div");
+    temp.innerHTML = item.isi;
 
-            if(shareUrl) window.open(shareUrl, '_blank');
-        }
+    // Mengganti <br> dengan baris baru
+    temp.querySelectorAll("br").forEach(br => br.replaceWith("\n"));
 
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href);
-            alert('Tautan berhasil disalin ke clipboard!');
-        }
+    // Mengganti paragraf dengan jarak/baris baru
+    temp.querySelectorAll("p").forEach(p => {
+        p.insertAdjacentText("afterend", "\n\n");
+    });
+
+    let isiRumusan = temp.innerText
+        .replace(/\n{3,}/g, "\n\n")
+        .replace(/[ \t]+\n/g, "\n")
+        .trim();
+
+    // Membuat format pesan WhatsApp
+    const pesan =
+`*${item.judul}*
+
+${isiRumusan}
+
+━━━━━━━━━━━━━━━━━━
+*_Diteruskan dari website Majlis Musyawarah Santri._*`;
+
+    // Membuka WhatsApp dengan pesan sudah tertempel
+    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(pesan)}`;
+
+    window.open(whatsappURL, "_blank");
+}
 
         window.addEventListener('scroll', () => {
             const header = document.getElementById('main-header');
