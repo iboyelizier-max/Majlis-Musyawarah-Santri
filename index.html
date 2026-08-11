@@ -1274,63 +1274,6 @@
         </div>
     </div>
 
-    <!-- Add Rumusan Modal -->
-    <div id="add-rumusan-modal" class="fixed inset-0 bg-emerald-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto" onclick="closeAddRumusanModal()">
-        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 md:p-8 transform scale-95 transition-all duration-300 relative my-8 max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
-            <button onclick="closeAddRumusanModal()" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center font-bold"><i class="fa-solid fa-xmark"></i></button>
-            
-            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 font-bold text-xs uppercase rounded-full">Form Admin</span>
-            <h3 class="text-2xl font-extrabold text-emerald-950 mt-3">Tambah Rumusan Bahtsul Masa'il</h3>
-            <p class="text-sm text-gray-500 mt-1">Fitur penambahan rumusan hanya diperuntukkan khusus bagi Admin/Ketua MMS. Dilarang menambahkan, mengubah, atau menghapus rumusan tanpa izin resmi.</p>
-
-            <form id="form-tambah-rumusan" onsubmit="handleSaveRumusan(event)" class="mt-6 space-y-4">
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">Tema Rumusan</label>
-                    <select id="input-tema" required class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
-                        <option value="">Pilih Tema</option>
-                        <option value="Fiqih Kontemporer">Fiqih Kontemporer</option>
-                        <option value="Muamalah">Muamalah</option>
-                        <option value="Ibadah">Ibadah</option>
-                        <option value="Ushul Fiqh">Ushul Fiqh</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">Judul Rumusan</label>
-                    <input type="text" id="input-judul" required placeholder="Contoh: Status Hukum Transaksi..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">Isi Rumusan</label>
-                    <p class="text-xs text-gray-500 mb-2">Gunakan format **teks** untuk bold, __teks__ untuk italic, *__teks__* untuk bold-italic.</p>
-                    <textarea id="input-isi" rows="6" required placeholder="**Deskripsi Masalah**&#10;&#10;isi deskripsi..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm font-mono"></textarea>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Upload Gambar (Opsional)</label>
-                        <input type="file" id="input-gambar" accept="image/*" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-200 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Posisi Gambar</label>
-                        <input type="text" id="input-posisi-gambar" placeholder="cth: setelah paragraf pertama" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">Judul Gambar / Caption (Opsional)</label>
-                    <input type="text" id="input-caption" placeholder="Contoh: Gambar ilustrasi yang dibahas" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-700 text-sm">
-                </div>
-
-                <div class="pt-4 flex items-center justify-end gap-3">
-                    <button type="button" onclick="closeAddRumusanModal()" class="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 text-sm font-bold">Batal</button>
-                    <button type="submit" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold">Simpan Rumusan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
     <!-- ==========================================
        JAVASCRIPT CODE & DATA STRUCTURE
        ========================================== -->
@@ -1766,16 +1709,6 @@ Seandainya ada empat orang yang membasuh seluruh anggota whudu’ seseorang seka
             }
         ];
 
-        // Load data dari localStorage jika ada
-        const savedRumusan = localStorage.getItem('mms_rumusan_data');
-        if(savedRumusan) {
-            try {
-                rumusanData = JSON.parse(savedRumusan);
-            } catch(e) {
-                console.error("Gagal memuat data localStorage", e);
-            }
-        }
-
         function switchSection(sectionId) {
             const sections = ['beranda', 'arsip', 'baca', 'galeri', 'tentang', 'agenda'];
             sections.forEach(id => {
@@ -1959,123 +1892,6 @@ card.innerHTML = `
             box.classList.add('scale-95');
         }
 
-        function openAddRumusanModal() {
-            const modal = document.getElementById('add-rumusan-modal');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-        }
-
-        function closeAddRumusanModal() {
-            const modal = document.getElementById('add-rumusan-modal');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            document.getElementById('form-tambah-rumusan').reset();
-        }
-
-        // Parser Sederhana untuk Format Teks & Penempatan Gambar
-        function parseRumusanText(rawText) {
-            // Konversi format teks markdown sederhana
-            let formatted = rawText
-                .replace(/\*__([\s\S]*?)__\*/g, '<strong><em>$1</em></strong>')
-                .replace(/__([\s\S]*?)__/g, '<em>$1</em>')
-                .replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
-
-            // Mempertahankan enter & spasi antar paragraf
-            let paragraphs = formatted.split(/\r?\n\s*\r?\n/);
-            return paragraphs.map(p => `<p class="text-justify">${p.trim()}</p>`).join('');
-        }
-
-        function handleSaveRumusan(event) {
-            event.preventDefault();
-            const tema = document.getElementById('input-tema').value;
-            const judul = document.getElementById('input-judul').value;
-            const rawIsi = document.getElementById('input-isi').value;
-            const posisiGambar = document.getElementById('input-posisi-gambar').value.toLowerCase().trim();
-            const captionGambar = document.getElementById('input-caption').value;
-            const imageFile = document.getElementById('input-gambar').files[0];
-
-            let parsedContent = parseRumusanText(rawIsi);
-
-            const finishSave = (imgHtmlTag = '') => {
-                if(imgHtmlTag) {
-                    if(posisiGambar.includes('setelah paragraf pertama')) {
-                        parsedContent = parsedContent.replace('</p>', `</p>${imgHtmlTag}`);
-                    } else if(posisiGambar.includes('setelah paragraf kedua')) {
-                        let parts = parsedContent.split('</p>');
-                        if(parts.length >= 2) {
-                            parts[1] = parts[1] + `</p>${imgHtmlTag}`;
-                            parsedContent = parts.join('</p>');
-                        } else {
-                            parsedContent += imgHtmlTag;
-                        }
-                    } else if(posisiGambar.includes('setelah tulisan')) {
-                        let keyword = posisiGambar.replace('setelah tulisan', '').trim();
-                        if(keyword && parsedContent.toLowerCase().includes(keyword)) {
-                            // Sisipkan setelah tag penutup p yang mengandung keyword atau setelah teks tersebut
-                            let regex = new RegExp(`([^<]*?${keyword}[^<]*?)<\/p>`, 'i');
-                            if(regex.test(parsedContent)) {
-                                parsedContent = parsedContent.replace(regex, `$1</p>${imgHtmlTag}`);
-                            } else {
-                                parsedContent += imgHtmlTag;
-                            }
-                        } else {
-                            parsedContent += imgHtmlTag;
-                        }
-                    } else {
-                        parsedContent += imgHtmlTag;
-                    }
-                }
-
-                const now = new Date();
-                const options = { day: 'numeric', month: 'long', year: 'numeric' };
-                const tanggalStr = now.toLocaleDateString('id-ID', options);
-                const tahunStr = now.getFullYear().toString();
-
-                const newId = rumusanData.length > 0 ? Math.max(...rumusanData.map(r => r.id)) + 1 : 1;
-
-                const newRumusan = {
-                    id: newId,
-                    judul: judul,
-                    tanggal: tanggalStr,
-                    tahun: tahunStr,
-                    tema: tema,
-                    estTime: '4 min',
-                    isi: parsedContent
-                };
-
-                rumusanData.unshift(newRumusan);
-                localStorage.setItem('mms_rumusan_data', JSON.stringify(rumusanData));
-
-                closeAddRumusanModal();
-                switchSection('arsip');
-            };
-
-            if(imageFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imgSrc = e.target.result;
-                    const imgHtmlTag = `
-                        <div class="my-6 text-center">
-                            <img src="${imgSrc}" alt="${captionGambar || 'Gambar Rumusan'}" class="mx-auto rounded-2xl max-h-[400px] shadow-lg border border-gray-200">
-                            ${captionGambar ? `<p class="text-sm text-gray-500 italic mt-2">${captionGambar}</p>` : ''}
-                        </div>
-                    `;
-                    finishSave(imgHtmlTag);
-                };
-                reader.readAsDataURL(imageFile);
-            } else if(posisiGambar && captionGambar) {
-                // Jika tidak ada file gambar namun ada caption/posisi dummy
-                const imgHtmlTag = `
-                    <div class="my-6 p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-300 text-center text-gray-500">
-                        <i class="fa-solid fa-image text-3xl mb-2 text-yellow-500"></i>
-                        <p class="text-sm font-medium">[GAMBAR]</p>
-                        ${captionGambar ? `<p class="text-sm italic mt-1">${captionGambar}</p>` : ''}
-                    </div>
-                `;
-                finishSave(imgHtmlTag);
-            } else {
-                finishSave();
-            }
-        }
-
         function handleGlobalSearch(query) {
             const container = document.getElementById('modal-search-results');
             container.innerHTML = '';
@@ -2249,7 +2065,6 @@ ${isiRumusan}
                 closeSearchModal();
                 closeLightbox();
                 closeAgendaModal();
-                closeAddRumusanModal();
             }
         });
 
