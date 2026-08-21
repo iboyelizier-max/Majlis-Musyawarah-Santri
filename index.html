@@ -350,6 +350,25 @@
             z-index:1;
         }
         
+        /* New Styles for Gallery Download */
+        .gallery-download {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .gallery-download:hover {
+            background: rgba(234, 179, 8, 0.9);
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="bg-[#fdfbf7] text-gray-800 antialiased selection:bg-yellow-500 selection:text-white">
@@ -642,442 +661,395 @@
 
         <div class="masonry-grid">
 
-            <!-- =====================================================
-                 TAMBAH FOTO BARU DI BAWAH KOMENTAR INI
-                 FOTO TERBARU SELALU DILETAKKAN PALING ATAS
-                 ===================================================== -->
-
-
+            <!-- FOTO 32 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto32.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto32.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto32.jpeg" alt="Galeri 32" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 31 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto31.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto31.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto31.jpeg" alt="Galeri 31" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 30 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto30.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto30.jpeg', 'Moderator Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto30.jpeg" alt="Galeri 30" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Moderator Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 29 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto29.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto29.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto29.jpeg" alt="Galeri 29" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 28 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto28.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto28.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto28.jpeg" alt="Galeri 28" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 27 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto27.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto27.jpeg', 'Perumus Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto27.jpeg" alt="Galeri 27" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Perumus Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 26 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto26.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto26.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto26.jpeg" alt="Galeri 26" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 25 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto25.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto25.jpeg', 'Notulen Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto25.jpeg" alt="Galeri 25" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Notulen Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 24 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto24.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto24.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto24.jpeg" alt="Galeri 24" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 23 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto23.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto23.jpeg', 'Perumus Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto23.jpeg" alt="Galeri 23" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Perumus Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 22 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto22.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto22.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto22.jpeg" alt="Galeri 22" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 21 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto21.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto21.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto21.jpeg" alt="Galeri 21" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 20 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto20.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto20.jpeg', 'Perumus Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto20.jpeg" alt="Galeri 20" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Perumus Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 19 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto19.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto19.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto19.jpeg" alt="Galeri 19" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOTO 18 -->
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto18.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto18.jpeg', 'Mushohhih Majlis Musyawarah Santri ke-36')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto18.jpeg" alt="Galeri 18" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">10 Agustus 2026</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Mushohhih Majlis Musyawarah Santri ke-36</h3>
+                    </div>
+                </div>
+            </div>
+            
             <!-- FOTO 17 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto17.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-37')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto17.jpeg"
-                     alt="Galeri 17"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Dokumentasi Majlis Musyawarah Santri ke-37
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto17.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto17.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto17.jpeg" alt="Galeri 17" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
             
             <!-- FOTO 16 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto16.jpeg', 'Potret Notulen Majlis Musyawarah Santri ke-36')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto16.jpeg"
-                     alt="Galeri 16"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Potret Notulen Majlis Musyawarah Santri ke-36
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto16.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto16.jpeg', 'Potret Notulen Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto16.jpeg" alt="Galeri 16" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Potret Notulen Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
             
             <!-- FOTO 15 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto15.jpeg', 'Potret Moderator Majlis Musyawarah Santri ke-35')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto15.jpeg"
-                     alt="Galeri 15"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Potret Moderator Majlis Musyawarah Santri ke-35
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto15.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto15.jpeg', 'Potret Moderator Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto15.jpeg" alt="Galeri 15" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Potret Moderator Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
             
             <!-- FOTO 14 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto14.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto14.jpeg"
-                     alt="Galeri 14"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Dokumentasi Majlis Musyawarah Santri ke-35
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto14.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto14.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto14.jpeg" alt="Galeri 14" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 13 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto13.jpeg', 'Potret Delegasi Sedang Menjawab Pertanyaan')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto13.jpeg"
-                     alt="Galeri 13"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Potret Delegasi Sedang Menjawab Pertanyaan
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto13.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto13.jpeg', 'Potret Delegasi Sedang Menjawab Pertanyaan')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto13.jpeg" alt="Galeri 13" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Potret Delegasi Sedang Menjawab Pertanyaan</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 12 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto12.jpeg', 'Sekumpulan Perumus Majlis Musyawarah Santri ke-35')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto12.jpeg"
-                     alt="Galeri 12"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Sekumpulan Perumus Majlis Musyawarah Santri ke-35
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto12.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto12.jpeg', 'Sekumpulan Perumus Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto12.jpeg" alt="Galeri 12" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Sekumpulan Perumus Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 11 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto11.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto11.jpeg"
-                     alt="Galeri 11"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Dokumentasi Majlis Musyawarah Santri ke-35
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto11.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto11.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto11.jpeg" alt="Galeri 11" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 10 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto10.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto10.jpeg"
-                     alt="Galeri 10"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Dokumentasi Majlis Musyawarah Santri ke-35
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto10.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto10.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto10.jpeg" alt="Galeri 10" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 9 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto9.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto9.jpeg"
-                     alt="Galeri 9"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Dokumentasi Majlis Musyawarah Santri ke-35
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto9.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto9.jpeg', 'Dokumentasi Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto9.jpeg" alt="Galeri 9" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Dokumentasi Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 8 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto8.jpeg', 'Sambutan Ketua Majlis Musyawarah Santri ke-35')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto8.jpeg"
-                     alt="Galeri 8"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Sambutan Ketua Majlis Musyawarah Santri ke-35
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto8.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto8.jpeg', 'Sambutan Ketua Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto8.jpeg" alt="Galeri 8" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Sambutan Ketua Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 7 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto7.jpeg', 'Pembukaan Majlis Musyawarah Santri ke-35')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto7.jpeg"
-                     alt="Galeri 7"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Pembukaan Majlis Musyawarah Santri ke-35
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto7.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto7.jpeg', 'Pembukaan Majlis Musyawarah Santri ke-35')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto7.jpeg" alt="Galeri 7" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Pembukaan Majlis Musyawarah Santri ke-35</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 6 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto6.jpeg', 'Mushohhih Majlis Musyawarah Santri')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto6.jpeg"
-                     alt="Galeri 6"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Mushohhih Majlis Musyawarah Santri
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto6.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto6.jpeg', 'Mushohhih Majlis Musyawarah Santri')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto6.jpeg" alt="Galeri 6" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Mushohhih Majlis Musyawarah Santri</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 5 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto5.jpeg', 'Perumus Majlis Musyawarah Santri')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto5.jpeg"
-                     alt="Galeri 5"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        27 September 2025
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Perumus Majlis Musyawarah Santri
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto5.jpeg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto5.jpeg', 'Perumus Majlis Musyawarah Santri')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto5.jpeg" alt="Galeri 5" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">27 September 2025</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Perumus Majlis Musyawarah Santri</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 4 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto4.jpg', 'Peserta MMS dalam diskusi')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto4.jpg"
-                     alt="Galeri 4"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        11 Oktober 2024
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Peserta MMS dalam diskusi
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto4.jpg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto4.jpg', 'Peserta MMS dalam diskusi')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto4.jpg" alt="Galeri 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">11 Oktober 2024</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Peserta MMS dalam diskusi</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 3 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto3.jpg', 'Kompromi group peserta Majlis Musyawarah Santri')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto3.jpg"
-                     alt="Galeri 3"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        11 Oktober 2024
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Kompromi group peserta Majlis Musyawarah Santri
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto3.jpg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto3.jpg', 'Kompromi group peserta Majlis Musyawarah Santri')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto3.jpg" alt="Galeri 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">11 Oktober 2024</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Kompromi group peserta Majlis Musyawarah Santri</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 2 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto2.JPG', 'Peserta MMS berebut kesempatan untuk menjawab')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto2.JPG"
-                     alt="Galeri 2"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        05 April 2021
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Peserta MMS berebut kesempatan untuk menjawab
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto2.JPG" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto2.JPG', 'Peserta MMS berebut kesempatan untuk menjawab')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto2.JPG" alt="Galeri 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">05 April 2021</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Peserta MMS berebut kesempatan untuk menjawab</h3>
+                    </div>
                 </div>
             </div>
-
 
             <!-- FOTO 1 -->
-            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer"
-                 onclick="openLightbox('foto1.jpg', 'Pemandangan Majlis Musyawarah Santri dari arah belakang')">
-
-                <img loading="eager"
-                     decoding="async"
-                     fetchpriority="high"
-                     src="foto1.jpg"
-                     alt="Galeri 1"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-
-                    <span class="text-xs font-bold text-yellow-400 uppercase">
-                        15 Agustus 2022
-                    </span>
-
-                    <h3 class="text-white font-bold text-lg mt-1">
-                        Pemandangan Majlis Musyawarah Santri dari arah belakang
-                    </h3>
-
+            <div class="masonry-item group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <a href="foto1.jpg" download class="gallery-download" title="Download Foto"><i class="fa-solid fa-download"></i></a>
+                <div onclick="openLightbox('foto1.jpg', 'Pemandangan Majlis Musyawarah Santri dari arah belakang')">
+                    <img loading="eager" decoding="async" fetchpriority="high" src="foto1.jpg" alt="Galeri 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-xs font-bold text-yellow-400 uppercase">15 Agustus 2022</span>
+                        <h3 class="text-white font-bold text-lg mt-1">Pemandangan Majlis Musyawarah Santri dari arah belakang</h3>
+                    </div>
                 </div>
             </div>
-
 
         </div>
     </div>
 </section>
-```
 
-
-
-        <!-- ==========================================
+<!-- ==========================================
            SECTION 5: TENTANG MMS (ABOUT)
            ========================================== -->
         <section id="section-tentang" class="min-h-screen pt-28 pb-20 px-6 md:px-16 hidden">
